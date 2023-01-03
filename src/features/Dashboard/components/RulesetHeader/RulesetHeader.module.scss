@@ -1,0 +1,48 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/layout/grid';
+
+.headerContainer,
+.content {
+	display: flex;
+	width: 100%;
+}
+
+.content {
+	align-items: center;
+	flex: 1;
+
+	div {
+		margin-left: $spacing-3;
+	}
+}
+
+.modal_btns {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.inputContainer {
+	composes: container;
+	min-width: 100%;
+	padding: 0;
+}
+
+.row {
+	composes: row;
+	margin-top: 0;
+	min-width: 100%;
+	gap: 10px;
+	padding: 0;
+	margin: 0;
+}
+
+.col {
+	composes: col;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: calc(50% - 5px);
+	@media screen and (max-width: $breakpoint-medium) {
+		width: 100%;
+	}
+}

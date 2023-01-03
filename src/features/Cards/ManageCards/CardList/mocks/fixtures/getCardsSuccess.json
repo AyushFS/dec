@@ -1,0 +1,65 @@
+{
+	"code": "SUCCESS",
+	"data": {
+		"summary": {
+			"totalLimit": "29000",
+			"outstandingLimit": "368.85",
+			"remainingLimit": "28631.15"
+		},
+		"cards": [
+			{
+				"cardNumber": "520235XXXXXX4314",
+				"nameOnCard": "WATTNANARANARM TIWARAT",
+				"expiry": "2027-08",
+				"cardStatus": "ACTIVATED",
+				"totalLimit": "12000",
+				"outstandingLimit": "31.31",
+				"remainingLimit": "11968.69",
+				"cardUuid": "c7043e04-2a2d-411b-9643-a871428c93db",
+				"isMaster": false,
+				"cardHashId": "966e68ce3f115d9f5f476ef130a04a0d",
+				"isLocked": false,
+				"canUnlock": false,
+				"unableUnlockReasonCode": "",
+				"pendingDirectors": [],
+				"spendPurposes": [
+					{
+						"uuid": "5fa8efc1-c69c-4a2f-a240-67ad0533744b",
+						"spendPurposeUuid": "5da491f6-5f46-41d6-a91d-4a71679a9ca9",
+						"spendPurposeName": "salary"
+					}
+				],
+				"cardType": "CREDIT-CARD-MAIN",
+				"userUuid": "54854a38-3084-4191-a054-f0f3d1cdb7bf",
+				"createdAt": "2022-08-22T08:11:55Z"
+			},
+			{
+				"cardNumber": "520235XXXXXX5075",
+				"nameOnCard": "WATTNANARANARM TIWARAT",
+				"expiry": "2027-08",
+				"cardStatus": "ACTIVATED",
+				"totalLimit": "11000",
+				"outstandingLimit": "0",
+				"remainingLimit": "11000",
+				"cardUuid": "939e33fd-cd06-4b3d-8564-395649909ffd",
+				"isMaster": false,
+				"cardHashId": "defe74d2c2a6046a19935434697a79bc",
+				"isLocked": false,
+				"canUnlock": false,
+				"unableUnlockReasonCode": "",
+				"pendingDirectors": [],
+				"spendPurposes": [
+					{
+						"uuid": "652f725c-8f2e-4dab-be38-bfc86a8bb4cf",
+						"spendPurposeUuid": "a6d7c9fe-5c4c-4c97-8f92-79ef962af5a4",
+						"spendPurposeName": "reimbursement"
+					}
+				],
+				"cardType": "CREDIT-CARD-MAIN",
+				"userUuid": "54854a38-3084-4191-a054-f0f3d1cdb7bf",
+				"createdAt": "2022-08-18T08:38:54Z"
+			}
+		]
+	},
+	"status": true
+}

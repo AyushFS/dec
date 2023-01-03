@@ -1,0 +1,24 @@
+@import '@fs-design/pantry/src/shared/variables/type/type';
+
+.wrapper {
+	:global(.modal-body) {
+		margin: 0;
+
+		& > div,
+		form {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	:global(.modal) {
+		max-width: 480px;
+	}
+
+	:global(.modal-header) {
+		h5 {
+			font-size: $font-size-h6-desktop;
+			line-height: 140%;
+		}
+	}
+}

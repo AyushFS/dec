@@ -1,0 +1,60 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.statistics {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	.statisticsWrapper {
+		display: flex;
+		flex-direction: row;
+		gap: 16px;
+		background: #f6f6f6;
+		border-radius: 8px;
+		position: relative;
+
+		@media screen and (max-width: $breakpoint-medium) {
+			gap: 8px;
+		}
+
+		@media screen and (max-width: $breakpoint-small) {
+			background: none;
+			flex-direction: column;
+		}
+
+		> div {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			flex: 1;
+		}
+
+		.noSpace {
+			flex: 0;
+
+			@media screen and (max-width: $breakpoint-small) {
+				display: none;
+			}
+		}
+
+		.verticalLine {
+			border-right: 1px solid $l-base-gray-lighter;
+			flex: 1;
+			margin: $spacing-5 $spacing-0;
+			width: 1px;
+		}
+	}
+
+	.section {
+		display: flex;
+	}
+}
+
+.dueAmountWarning {
+	display: none;
+	margin-top: $spacing-3;
+
+	@media screen and (max-width: $breakpoint-small) {
+		display: flex;
+	}
+}

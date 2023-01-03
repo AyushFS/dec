@@ -1,0 +1,63 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.CardDetails {
+	margin-bottom: $spacing-6;
+
+	&Card {
+		margin-bottom: $spacing-5;
+
+		.Card {
+			&Number {
+				display: flex;
+			}
+
+			&Name {
+				display: flex;
+			}
+		}
+	}
+
+	.CreditCardContainer {
+		margin-bottom: $spacing-5;
+	}
+
+	&Name {
+		text-align: center;
+		font-family: $font-family-heading;
+		font-size: 20px;
+		font-weight: $font-weight-medium;
+		line-height: 140%;
+		font-feature-settings: 'tnum' on, 'lnum' on;
+		color: $l-base-gray-darkest;
+		margin-bottom: 5px;
+
+		span {
+			color: $l-base-gray;
+			font-family: $font-family-body;
+			font-size: 18px;
+		}
+	}
+
+	&Role {
+		font-family: $font-family-body;
+		font-style: normal;
+		font-weight: $font-weight-medium;
+		text-align: center;
+		font-size: 12px;
+		line-height: 150%;
+		font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+		color: $l-base-gray;
+		margin-bottom: 5px;
+	}
+
+	&Amount {
+		font-family: $font-family-body;
+		font-style: normal;
+		font-weight: $font-weight-medium;
+		font-size: 14px;
+		line-height: 150%;
+		color: $l-base-gray;
+		text-align: center;
+		margin-bottom: $spacing-5;
+	}
+}

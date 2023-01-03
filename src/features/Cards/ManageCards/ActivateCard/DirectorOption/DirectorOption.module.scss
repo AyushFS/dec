@@ -1,0 +1,43 @@
+@import '@fs-design/pantry/src/index';
+
+.optionContainer {
+	display: flex;
+	padding: 16px;
+	background: $color-white;
+	border-radius: 8px;
+	justify-content: space-between;
+	gap: $spacing-5;
+	border: 1px solid $color-gray-200;
+	font-family: $font-family-body;
+	font-style: normal;
+
+	.title {
+		font-weight: $font-weight-medium;
+		font-size: $font-size-small;
+		line-height: 24px;
+		color: $color-gray-900;
+	}
+
+	.description {
+		font-weight: $font-weight-normal;
+		font-size: $font-size-small;
+		line-height: 150%;
+		color: $color-gray-700;
+		word-break: break-word;
+	}
+}
+
+.radioButton {
+	input[type='radio'] {
+		display: inline-block;
+		position: unset;
+		opacity: 1;
+		height: 20px;
+		width: 20px;
+	}
+}
+
+.selected {
+	border: 1px solid $color-gray-200;
+	background: $color-blue-000;
+}

@@ -1,0 +1,88 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/layout/grid';
+
+.AddRuleHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: $spacing-4 $spacing-6;
+	font-family: 'Inter';
+}
+
+.outerContainer {
+	padding: 0 $spacing-6 $spacing-6;
+	overflow: auto;
+	font-family: 'Inter';
+}
+
+.container {
+	composes: container;
+	padding: 0;
+	min-width: 100%;
+}
+
+.row {
+	composes: row;
+	min-width: 100%;
+	gap: 10px;
+	padding: 0;
+	margin: 0;
+	div {
+		padding-bottom: 0;
+	}
+}
+
+.col {
+	composes: col;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: calc(50% - 5px);
+	@media screen and (max-width: $breakpoint-medium) {
+		width: 100%;
+	}
+}
+
+.switchBtnContainer {
+	display: flex;
+	margin: $spacing-6 0;
+	font-size: $font-size-small;
+	font-weight: $font-weight-medium;
+	cursor: pointer;
+
+	.switchBtn {
+		padding: $spacing-2 $spacing-4;
+	}
+}
+
+.conditionsTxt {
+	font-size: 18px;
+}
+
+.selected {
+	border-bottom: 2px solid $l-primary;
+	color: $l-primary;
+}
+
+.inoutsection {
+	margin-bottom: $spacing-6 * 2;
+	button {
+		margin-top: $spacing-6;
+	}
+}
+
+.actionBtn {
+	position: fixed;
+	bottom: 0;
+	padding: $spacing-4;
+	right: $spacing-6;
+	width: calc(100% - 47px);
+	display: flex;
+	justify-content: flex-end;
+	background: #fff;
+
+	div {
+		left: $spacing-6;
+		position: fixed;
+	}
+}

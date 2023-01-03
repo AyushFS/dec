@@ -1,0 +1,39 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.UnderstandBill {
+	display: flex;
+
+	.modal > div {
+		max-width: 566px;
+		border: 1px solid transparent;
+	}
+
+	.footer {
+		display: flex;
+		gap: 16px;
+
+		> * {
+			display: flex;
+			flex-basis: 100%;
+		}
+	}
+
+	ul {
+		padding-left: 1.2em;
+
+		li {
+			font-family: $font-family-body;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: $font-weight-normal;
+			line-height: 150%;
+			font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+			color: $l-base-gray-darker;
+			margin: $spacing-5 auto;
+
+			.title {
+				font-weight: $font-weight-medium;
+			}
+		}
+	}
+}

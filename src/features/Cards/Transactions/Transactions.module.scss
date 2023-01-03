@@ -1,0 +1,11 @@
+@import '@fs-design/pantry/src/index';
+
+.transactionsContainer {
+	.pageTitle {
+		margin-bottom: $spacing-6;
+	}
+
+	:global(.col) {
+		padding: 0;
+	}
+}

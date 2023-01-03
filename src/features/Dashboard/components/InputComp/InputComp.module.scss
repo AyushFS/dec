@@ -1,0 +1,68 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/layout/grid';
+
+.mainContainer {
+	margin-bottom: $spacing-6;
+}
+
+.head {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: $spacing-6;
+}
+.inputContainer {
+	composes: container;
+	min-width: 100%;
+	// margin-bottom: $spacing-8;
+	padding: 0;
+	overflow: auto;
+}
+
+.row {
+	composes: row;
+	min-width: 100%;
+	gap: 10px;
+	padding: 0;
+	margin: 0;
+	div {
+		padding-bottom: 0;
+	}
+}
+
+.col {
+	composes: col;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: calc(50% - 5px);
+	@media screen and (max-width: $breakpoint-medium) {
+		width: 100%;
+	}
+}
+
+.bottomContainer {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	flex-wrap: wrap;
+
+	@media screen and (max-width: $breakpoint-medium) {
+		display: block;
+	}
+}
+
+.valueSection {
+	width: 144px;
+
+	@media screen and (max-width: $breakpoint-medium) {
+		width: 100%;
+	}
+}
+
+.fullFlex {
+	flex: 1;
+	margin-left: $spacing-4;
+	@media screen and (max-width: $breakpoint-medium) {
+		margin-left: 0;
+	}
+}

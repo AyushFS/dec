@@ -1,0 +1,124 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.DueAmountAlertBox {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	padding: $spacing-5;
+	gap: $spacing-3;
+
+	border: 1px solid $l-base-gray-lightest;
+	border-radius: 12px;
+
+	&Details {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 0px;
+		gap: 8px;
+
+		@media screen and (max-width: $breakpoint-small) {
+			flex-direction: column;
+		}
+
+		.DueAmountAndDate {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			padding: 0px;
+			gap: 14px;
+
+			.Icon {
+				width: 36px;
+				height: 36px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				@media screen and (max-width: $breakpoint-small) {
+					display: none;
+				}
+
+				svg {
+					path {
+						fill: $l-primary-darkest;
+					}
+				}
+			}
+
+			.DueData {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+
+				.DueAmount {
+					font-family: $font-family-body;
+					font-style: normal;
+					font-weight: $font-weight-medium;
+					font-size: 16px;
+					line-height: 150%;
+					font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+					color: $l-base-gray-darkest;
+
+					span {
+						color: $l-primary-darkest;
+					}
+				}
+
+				.DueDate {
+					font-family: $font-family-body;
+					font-style: normal;
+					font-weight: $font-weight-normal;
+					font-size: 12px;
+					line-height: 150%;
+					display: flex;
+					align-items: flex-end;
+					font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+					color: $l-base-gray;
+				}
+			}
+		}
+
+		.Actions {
+			display: flex;
+			gap: 16px;
+
+			@media screen and (max-width: $breakpoint-small) {
+				justify-content: space-between;
+
+				span {
+					display: flex;
+					flex-basis: 100%;
+
+					button {
+						width: 100% !important;
+					}
+				}
+			}
+
+			.Primary {
+				button {
+					padding-left: $spacing-7;
+					padding-right: $spacing-7;
+				}
+			}
+		}
+	}
+
+	&Alert {
+		display: flex;
+
+		> div {
+			border-radius: 8px;
+			flex-basis: 100%;
+
+			> div > div {
+				font-family: $font-family-body;
+				font-style: normal;
+				font-weight: $font-weight-medium;
+				line-height: 150%;
+				font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+			}
+		}
+	}
+}

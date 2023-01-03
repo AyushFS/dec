@@ -1,0 +1,53 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.quickAction {
+	margin: $spacing-3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.7;
+	}
+
+	&Processing {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	&Icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		width: $spacing-9;
+		height: $spacing-9;
+		border-radius: $spacing-9;
+		background-color: $l-primary-lightest;
+		margin-bottom: $spacing-2;
+
+		svg {
+			width: 100%;
+			height: 100%;
+
+			path {
+				fill: $l-primary;
+			}
+		}
+	}
+
+	&Title {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 150%;
+		text-align: center;
+		font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+		color: $l-base-gray-darker;
+		padding: 0 $spacing-3;
+		max-width: 100px;
+		text-align: center;
+	}
+}

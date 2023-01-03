@@ -1,0 +1,72 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/layout/grid';
+
+.container {
+	composes: container;
+	min-width: 100%;
+	padding: 0;
+}
+
+.row {
+	composes: row;
+	margin-top: 0;
+	min-width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.col {
+	composes: col;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: 40%;
+	border: 2px solid #f6f6f6;
+	cursor: pointer;
+
+	&:hover {
+		border: 2px solid $l-base-gray-lighter;
+	}
+
+	@media screen and (max-width: $breakpoint-medium) {
+		width: 90%;
+	}
+}
+
+.fullCol {
+	width: 80%;
+}
+
+.deleteIcon {
+	position: absolute;
+	top: -30px;
+	z-index: 999;
+	right: 0 - $spacing-9 - $spacing-2;
+	padding: $spacing-3 $spacing-4;
+	background-color: $l-base-gray-lighter;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	@media screen and (max-width: $breakpoint-medium) {
+		right: 0;
+	}
+}
+
+.cardContainer {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 100%;
+	position: relative;
+
+	p {
+		margin: 0 $spacing-2 0 0;
+	}
+	.cardText {
+		flex: 1;
+	}
+	span {
+		font-size: $font-size-small;
+	}
+}

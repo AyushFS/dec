@@ -1,0 +1,10 @@
+@import '@fs-design/pantry/src/base/index';
+@import '@fs-design/pantry/src/components/button/index';
+
+.btn {
+	&.btn--flat,
+	&.btn--flat:hover {
+		border: 0;
+		box-shadow: none;
+	}
+}

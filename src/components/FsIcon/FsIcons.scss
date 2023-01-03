@@ -1,0 +1,158 @@
+.fs-icon {
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	&--hamburger {
+		background-image: url(../../../src/assets/images/icons/hamburger.svg);
+	}
+
+	&--home {
+		background-image: url(../../../src/assets/images/icons/Home.svg);
+	}
+
+	&--menu {
+		background-image: url(../../../src/assets/images/icons/Apps_Outline.svg);
+	}
+
+	&--download {
+		background-image: url(../../../src/assets/images/icons/download.svg);
+	}
+
+	&--card {
+		background-image: url(../../../src/assets/images/icons/Card.svg);
+	}
+
+	&--settings {
+		background-image: url(../../../src/assets/images/icons/Settings_Outline.svg);
+	}
+
+	&--statements {
+		background-image: url(../../../src/assets/images/icons/Statement.svg);
+	}
+
+	&--statement-lined {
+		background-image: url(../../../src/assets/images/icons/statement-lined.svg);
+		background-size: auto;
+	}
+
+	&--transaction-lined {
+		background-image: url(../../../src/assets/images/icons/transaction-lined.svg);
+		background-size: auto;
+	}
+
+	&--grid {
+		background-image: url(../../../src/assets/images/icons/grid.svg);
+	}
+
+	&--cards {
+		background-image: url(../../../src/assets/images/icons/cards.svg);
+	}
+
+	&--cashback {
+		background-image: url(../../../src/assets/images/icons/cashback.svg);
+	}
+
+	&--cashback_rewards {
+		background-image: url(../../../src/assets/images/icons/Cashback-Rewards.svg);
+	}
+
+	&--exclamation {
+		background-image: url(../../../src/assets/images/icons/Exclamation.svg);
+	}
+
+	&--arrow-right {
+		background-image: url(../../../src/assets/images/icons/arrow-right.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--arrow-left {
+		background-image: url(../../../src/assets/images/icons/arrow-left.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--lock {
+		background-image: url(../../../src/assets/images/icons/lock.svg);
+		background-size: auto;
+	}
+
+	&--unlock {
+		background-image: url(../../../src/assets/images/icons/unlock.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--copy {
+		background-image: url(../../../src/assets/images/icons/copy.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--eye {
+		background-image: url(../../../src/assets/images/icons/eye.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--eye-closed {
+		background-image: url(../../../src/assets/images/icons/eye-closed.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--refresh {
+		background-image: url(../../../src/assets/images/icons/refresh.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--tick {
+		background-image: url(../../../src/assets/images/icons/green-tick.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--minus {
+		background-image: url(../../../src/assets/images/icons/minus.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--plus {
+		background-image: url(../../../src/assets/images/icons/plus.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--cross {
+		background-image: url(../../../src/assets/images/icons/cross.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--tag {
+		background-image: url(../../../src/assets/images/icons/tag.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--info-round {
+		background-image: url(../../../src/assets/images/icons/info-round.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--add-user {
+		background-image: url(../../../src/assets/images/icons/add-user.svg);
+		background-size: auto;
+		background-position: center;
+	}
+
+	&--investor-profile {
+		background-image: url(../../../src/assets/images/icons/investor-profile.svg);
+		background-size: auto;
+		background-position: center;
+	}
+}

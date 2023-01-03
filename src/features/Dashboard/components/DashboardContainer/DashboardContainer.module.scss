@@ -1,0 +1,62 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/layout/grid';
+
+.dashboard {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+	padding: $spacing-6 $spacing-7;
+
+	@media screen and (max-width: $breakpoint-medium) {
+		padding: $spacing-5;
+	}
+
+	// @media screen and (max-width: $breakpoint-small) {
+	// 	flex-direction: row;
+	// }
+
+	.section {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		padding: 0px;
+		gap: 40px;
+
+		&.isColumn {
+			flex-direction: column;
+			align-items: stretch;
+		}
+	}
+}
+
+.container {
+	composes: container;
+	min-width: 100%;
+	// padding: 0;
+}
+
+.row {
+	composes: row;
+	margin-top: 0;
+	min-width: 100%;
+	gap: 20px;
+}
+
+.col {
+	composes: col;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: calc(50% - 10px);
+	@media screen and (max-width: $breakpoint-medium) {
+		width: 100%;
+	}
+}
+
+.welcome {
+	display: flex;
+	flex: 1;
+	margin-bottom: $spacing-5;
+}

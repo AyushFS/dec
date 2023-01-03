@@ -1,0 +1,354 @@
+{
+	"welcome": "Selamat Datang",
+	"login": {
+		"title": "Masuk",
+		"email": "Email",
+		"password": "Kata Sandi",
+		"login": "Masuk",
+		"there_seem_to_be_some_problem": "Ada masalah dengan sistem kami.",
+		"please_try_again_later": "Silakan coba lagi nanti.",
+		"login_credentials_are_invalid": "Kredensial Masuk tidak valid.",
+		"please_try_again_or_reset_your_password": "Silakan coba lagi atau reset kata sandi Anda.",
+		"2fa": {
+			"title": "Masuk dengan 2FA",
+			"code": "Masukkan 6 digit kode",
+			"verify_otp": "Verifikasi OTP",
+			"cancel": "Membatalkan",
+			"resend": "Kirim Ulang",
+			"otp_has_expired": "OTP telah kadaluarsa.",
+			"otp_will_expire_in": "OTP akan kadaluarsa dalam",
+			"didn_t_receive_otp": "Tidak menerima OTP?",
+			"there_seem_to_be_some_problem": "Ada masalah dengan sistem kami.",
+			"please_try_again_later": "Silakan coba lagi nanti."
+		}
+	},
+	"logout": {
+		"logging_out": "Keluar..."
+	},
+	"error_messages": {
+		"email_must_not_be_empty": "Email tidak boleh kosong.",
+		"email_is_not_valid": "Email tidak valid.",
+		"password_must_not_be_empty": "Kata Sandi tidak boleh kosong.",
+		"6_digit_otp_is_required": "6 digit OTP diperlukan."
+	},
+	"http_errors": {
+		"404": "404: Halaman tidak ditemukan"
+	},
+	"manage_cards": {
+		"title": "Kelola Kartu",
+		"master_admin": "Admin Guru",
+		"add_card_button": "Tambah fasilitas",
+		"card_status": {
+			"active": "Aktif",
+			"locked": "Terkunci",
+			"activation_pending": "Aktivasi Tertunda"
+		},
+		"card_details": {
+			"card_details": "Detail Kartu",
+			"available_balance": "Saldo Tersedia",
+			"manage_limit": "Kelola Batas",
+			"spending_limit": "Batas Pengeluaran",
+			"card_actions": {
+				"show_card_details": "Tampilkan Detail Kartu",
+				"hide_card_details": "Sembunyikan Detail Kartu",
+				"copy_card_number": "Salin nomor kartu",
+				"copied_to_clipboard": "Disalin ke papan klip",
+				"lock_card": "Kunci Kartu",
+				"unlock_card": "Buka Kunci Kartu"
+			},
+			"activate_card_box": {
+				"text": "Dengan mengetuk \"Aktifkan\", Anda menyetujui <link1>Persyaratan dan Ketentuan Kartu</link1> serta <link2>Persyaratan dan Ketentuan Fasilitas</link2>",
+				"button": "Aktifkan kartu"
+			},
+			"card_status": {
+				"pending_director": {
+					"title": "Aktivasi tertunda pada KYC direktur dan penandatanganan penawaran",
+					"body": "Kami membutuhkan semua direktur Anda untuk menyelesaikan KYC dan menawarkan penandatanganan.",
+					"check_status": "Periksa status"
+				},
+				"pending_card_provision_and_invited_user": {
+					"title": "Kartu sedang disediakan",
+					"body": "Kartu sedang disediakan. Kembali lagi nanti untuk memeriksa.",
+					"chat_with_us": "Berbincanglah dengan kami."
+				}
+			}
+		},
+		"add_card": {
+			"user_type_selection": {
+				"page_title": "Pilih jenis pengguna",
+				"page_description": "Anda dapat membuat pengguna baru dengan menambahkan semua detail dasar atau Anda dapat memilih pengguna yang ada",
+				"new_user": "Pengguna baru",
+				"new_user_description": "Detail pengguna baru sederhana di sini",
+				"existing_user": "Pengguna yang Ada",
+				"existing_user_description": "Detail pengguna yang ada sederhana di sini",
+				"cancel_button": "Membatalkan",
+				"continue_button": "Melanjutkan"
+			},
+			"user_details_form": {
+				"page_title": "Masukkan Detail Dasar",
+				"page_description": "Anda dapat membuat pengguna baru dengan menambahkan semua detail dasar atau Anda dapat memilih pengguna yang ada",
+				"cancel_button": "Membatalkan",
+				"continue_button": "Melanjutkan",
+				"name": "Nama",
+				"role": "Peran & Izin",
+				"mobile_number": "Nomor handphone",
+				"email": "Surel",
+				"nationality": "Kebangsaan",
+				"footer_message": "Dengan menekan \"Lanjutkan\", saya setuju bahwa pengguna baru berusia 21 tahun ke atas dan merupakan karyawan ",
+				"name_required": "Nama wajib diisi",
+				"email_required": "Email diperlukan",
+				"email_not_valid": "Email tidak valid",
+				"role_required": "Peran diperlukan",
+				"nationality_required": "Kewarganegaraan diperlukan",
+				"mobile_number_required": "Nomor Telepon diperlukan"
+			},
+			"specify_limit_page": {
+				"page_title": "Atur Pengeluaran Kartu",
+				"page_description": "Setelah menetapkan batas pengeluaran kartu, ini akan tercermin langsung pada detail kartu",
+				"spend_limit_info_message": "Anda dapat menetapkan batas hingga",
+				"spend_purpose": "Tujuan pembelanjaan",
+				"cancel_button": "Membatalkan",
+				"continue_button": "Melanjutkan",
+				"spend_limit_required": "Batas pembelanjaan diperlukan",
+				"spend_limit_range": "Masukkan jumlah yang berbeda dari batas pengeluaran saat ini.",
+				"spend_purpose_required": "Tujuan pembelanjaan wajib diisi",
+				"spending_limit": "Batas Pengeluaran",
+				"new_spending_limit": "Batas pengeluaran baru",
+				"current_spending_limit": "Batas pengeluaran saat ini"
+			},
+			"existing_user_page": {
+				"page_description": "Seorang pengguna hanya dapat memiliki maksimal 10 kartu.",
+				"page_title": "Pilih pengguna yang ada",
+				"cancel_button": "Membatalkan",
+				"continue_button": "Melanjutkan"
+			},
+			"shared": {
+				"back_button_label": "Kembali"
+			}
+		},
+		"manage_limit": {
+			"understand_card_spending_modal": {
+				"title": "Pahami pengeluaran kartu",
+				"subtitle": "Layanan yang ditawarkan oleh Matchmove. Pengeluaran yang dianggarkan diperbolehkan per siklus penagihan. Berbeda dengan Limit Kredit",
+				"note": "Perhatikan bahwa, jumlah kartu yang tersedia akan menjadi jumlah kredit yang tersedia perusahaan, bila kredit yang tersedia perusahaan Anda kurang dari jumlah kartu yang tersedia.",
+				"update_limit_button": "Batas pembaruan",
+				"cancel_button": "Membatalkan",
+				"available_amount": {
+					"title": "Jumlah yang tersedia",
+					"description": "Jumlah sisa yang dapat dibelanjakan pada kartu dalam siklus penagihan saat ini. Ini akan diperbarui antara tanggal 24-26 setiap bulan."
+				},
+				"spending": {
+					"title": "Pengeluaran",
+					"description": "Jumlah yang telah dibelanjakan pada kartu dalam siklus penagihan saat ini. Ini akan diperbarui antara tanggal 24-26 setiap bulan."
+				},
+				"spending_limit": {
+					"title": "Batas pengeluaran",
+					"description": "Jumlah yang dapat dibelanjakan pada kartu di setiap siklus penagihan."
+				}
+			},
+			"manage_card_limit": {
+				"title": "Kelola batas pengeluaran kartu"
+			}
+		},
+		"activate_card": {
+			"director_selection": {
+				"page_title": "Pilih direktur untuk pengakuan",
+				"page_description": "Kami akan menghubungi dan mendapatkan pengakuan dari salah satu direktur terdaftar lainnya. Sebelum memilih salah satu di bawah ini, pastikan alamat email sudah benar.",
+				"contact_us": "Jika Anda memiliki pertanyaan, hubungi kami.",
+				"cancel_button": "Membatalkan",
+				"continue_button": "Melanjutkan"
+			},
+			"acknowledgement": {
+				"page_title": "Menunggu pengakuan direktur",
+				"page_description": "Untuk mempercepat, ingatkan direktur untuk mengawasi kotak masuknya dan ikuti instruksi untuk menyelesaikan pengakuan.",
+				"continue_button": "Melanjutkan"
+			}
+		}
+	},
+	"statements": {
+		"title": "Semua Laporan",
+		"empty_statements": {
+			"title": "Laporan kosong",
+			"description": "Belum ada laporan yang tersedia"
+		},
+		"statements_list": {
+			"date": "Tanggal",
+			"action": "Tindakan"
+		},
+		"pay_bill_box": {
+			"due_amount": "Jumlah Jatuh Tempo",
+			"due_on": "Jatuh tempo pada",
+			"view_details": "Lihat detail",
+			"pay_bill": "Bayar tagihan",
+			"alerts": {
+				"pay_bill_before_due_date": "Membayar tagihan sebelum tanggal jatuh tempo dapat membantu meningkatkan skor kredit and mengamankan kesehatan finansial kantor Anda.",
+				"avoid_rollover_interest": "Hindari bunga rollover interest dengan membayar tagihan secara penuh.",
+				"late_payment_on_min_amount": "Telat membayar nilai minimum tertagih dapat berdampak pada skor kredit dan penilaian pinjaman masa depan dengan institusi keuangan."
+			}
+		},
+		"bill_details": {
+			"title": "Pahami tagihan",
+			"description": "Berikut adalah jumlah akhir dan detail rekening untuk mentransfer pembayaran",
+			"due_date": "Tanggal jatuh tempo",
+			"minimum_due": "Nilai tertagih minimum",
+			"total_amount_due": "Total tertagih",
+			"statement": "Laporan",
+			"understand_the_bill": "Pahami tagihan",
+			"pay_bill_now": "Bayar tagihan Sekarang"
+		},
+		"pay_bill": {
+			"title": "Pilih opsi pembayaran",
+			"description": "Pilih opsi pembayaran yang tersedia dan lanjutkan",
+			"made_the_transfer": "Saya telah melakukan transfer",
+			"will_pay_later": "Saya akan membayar nanti",
+			"account_name": "Nama Akun",
+			"bank_name": "Nama Bank",
+			"account_number": "Nomor Akun",
+			"reference": "Referensi",
+			"pay_by_bank_transfer": "Pembayaran via transfer bank",
+			"to_funding_societies_account": "Ke akun Funding Societies:",
+			"to_modalku_account": "Ke akun Modalku:",
+			"transfer_full_amount_of": "Transfer sejumlah",
+			"include_the_reference": "Pastikan Anda memasukkan referensi. Itu akan membantu kami memproses pembayaran lebih cepat.",
+			"highlight_message": "Nomor rekening baru ini akan mempercepat proses pembayaran. Pastikan Anda melakukan transfer ke akun baru ini!",
+			"copy": "Salin",
+			"new": "BARU",
+			"copied_to_clipboard": "{{label}} disalin ke papan klip",
+			"only_master_can_pay_bill": "Hanya master user yang dapat membayar tagihan",
+			"loading_bank_details": "Memuat Detail Bank...",
+			"payment_options": {
+				"total_amount_due": "Total tertagih",
+				"minimum_due": "Nilai tertagih minimum",
+				"other_amount": "Jumlah lain"
+			},
+			"notes": {
+				"SG": {
+					"late_fee_charged": "Anda dikenakan biaya sebesar dari SGD 100.00 sebanyak satu kali saat melakukan minimum pembayaran. Setelah itu, Anda tidak perlu membayarnya kembali saat jatuh tempo.",
+					"rollover_fee_charged": "Biaya denda akan dikenakan sebesar 0.067% per hari jika ada keterlambatan pembayaran fasilitas hingga melewati masa jatuh tempo."
+				},
+				"ID": {
+					"late_fee_charged": "Anda dikenakan biaya sebesar dari Rp175.000 sebanyak satu kali saat melakukan minimum pembayaran. Setelah itu, Anda tidak perlu membayarnya kembali saat jatuh tempo.",
+					"rollover_fee_charged": "Biaya denda akan dikenakan sebesar 0,1% per hari jika ada keterlambatan pembayaran fasilitas hingga melewati masa jatuh tempo."
+				}
+			}
+		},
+		"understand_bill_modal": {
+			"title": "Pahami tagihan",
+			"ok_button": "Baik",
+			"cancel_button": "Membatalkan",
+			"due_date": {
+				"title": "Tanggal jatuh tempo",
+				"description": "Ini adalah tanggal (Due Date) dimana Anda perlu membayar paling sedikit nilai minimal tertagih (Minimum Due), agar tidak dikenakan biaya keterlambatan."
+			},
+			"billing_cycle": {
+				"title": "Siklus Penagihan",
+				"description": "Setiap siklus penagihan berlangsung dari tanggal 25 pada bulan sebelumnya hingga tanggal 24 pada bulan ini."
+			},
+			"total_amount_due": {
+				"title": "Total tertagih",
+				"description": "Jumlah dari nilai transaksi saat ini dan nilai tertagih yang belum dibayarkan dari bulan-bulan sebelumnya, ini adalah total nilai yang harus dibayarkan oleh Anda (Total Amount Due)."
+			},
+			"minimum_due": {
+				"title": "Nilai tertagih minimum",
+				"description": "Nilai minimum yang harus dibayarkan (Minimum Due) sebelum tanggal jatuh tempo untuk menghindari biaya keterlambatan."
+			},
+			"utilisatin_amount": {
+				"title": "Jumlah penggunaan",
+				"description": "Total limit kredit yang digunakan pada siklus penagihan Anda (Billing cycle) saat ini."
+			},
+			"rollover_interest_fee": {
+				"title": "Biaya bunga rollover",
+				"description": "Biaya 0.067% per hari akan dikenakan kepada nilai tertagih yang belum dibayarkan pada tanggal jatuh tempo."
+			},
+			"late_fee": {
+				"title": "Biaya keterlambatan",
+				"description": "SGD 100 akan dikenakan apabila nilai tertagih minimum (Minimum due) belum dibayarkan pada saat tanggal jatuh tempo."
+			}
+		},
+		"payment_confirmation_modal": {
+			"title": "Mengerti. Kami sedang memproses pembayaran Anda.",
+			"description": "Duduk dan rileks. Itu ada di tangan kita sekarang. Ini akan memakan waktu 1-2 hari kerja untuk mencerminkan status pembayaran.",
+			"button": "Kembali ke pernyataan"
+		}
+	},
+	"transactions": {
+		"title": "Semua Transaksi",
+		"empty_transactions": {
+			"description": "Maaf! kami tidak dapat menemukan detail transaksi sesuai pencarian Anda. Silakan coba lagi."
+		},
+		"transaction_details": {
+			"title": "Detail Transaksi",
+			"total_transaction_amount": "Total Jumlah Transaksi",
+			"transaction_date": "tanggal transaksi",
+			"transaction_status": "Status Transaksi",
+			"cardholder_detail": "Detail Pemegang Kartu",
+			"transaction_merchant": "Pedagang Transaksi",
+			"transaction_type": "tipe transaksi",
+			"category": "Kategori"
+		}
+	},
+	"overview": {
+		"quick_actions": {
+			"title": "Tindakan Cepat",
+			"view_card_details": "Lihat Detail Kartu",
+			"view_e_statements": "Lihat E-Statement",
+			"cashback_and_rewards": "Cashback & Rewards",
+			"manage_cards": "Kelola Kartu",
+			"transaction_history": "Riwayat Transaksi",
+			"add_new_card": "Tambah Kartu Baru"
+		},
+		"my_cards": {
+			"title": "Kartu Saya",
+			"view_all_cards": "Lihat Semua Kartu"
+		},
+		"welcome_message": {
+			"welcome_back": "Selamat datang kembali!"
+		},
+		"available_cashback_small": {
+			"title": "Cashback Tersedia",
+			"total_earned": "Total yang diterima",
+			"view_cashback": "Lihat Cashback"
+		},
+		"due_amount_box": {
+			"due_amount": "Jumlah Jatuh Tempo",
+			"due_on": "Jatuh tempo pada",
+			"view_details": "Lihat detail",
+			"pay_bill": "Bayar tagihan"
+		},
+		"total_credit_limit": {
+			"total_credit_limit": "Total limit fasilitas pendanaan",
+			"show_details": "Tampilkan detail",
+			"hide_details": "Sembunyikan detail",
+			"show_limit_details": "Tampilkan detail limit",
+			"hide_limit_details": "Sembunyikan detail limit",
+			"total_credit_spend": "Total penggunaan fasilitas pendanaan",
+			"total_available_credit": "Total fasilitas pendanaan tersedia",
+			"need_higher_limit": "Butuh limit fasilitas pendanaan lebih besar?"
+		}
+	},
+	"components": {
+		"select": {
+			"default_error_message": "Sepertinya ada kesalahan di atas"
+		},
+		"mobile_input": {
+			"label": "Nomor handphone"
+		}
+	},
+	"common": {
+		"loading": "Memuat...",
+		"months_short": {
+			"jan": "Jan",
+			"feb": "Feb",
+			"mar": "Mar",
+			"apr": "Apr",
+			"may": "Mei",
+			"jun": "Jun",
+			"jul": "Jul",
+			"aug": "Agu",
+			"sep": "Sep",
+			"oct": "Okt",
+			"nov": "Nov",
+			"dec": "Des"
+		}
+	}
+}

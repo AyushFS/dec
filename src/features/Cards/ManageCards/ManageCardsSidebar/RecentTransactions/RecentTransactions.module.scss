@@ -1,0 +1,34 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.RecentTransactions {
+	&Header {
+		display: flex;
+		align-items: center;
+		margin-bottom: $spacing-5;
+
+		font-family: 'Inter';
+		font-style: normal;
+		font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+		line-height: 150%;
+
+		button {
+			padding: 0;
+			font-weight: 500;
+			font-size: 14px;
+			color: $l-primary;
+		}
+
+		&Title {
+			flex-grow: 1;
+			font-weight: 600;
+			font-size: 16px;
+			color: $l-base-gray-darkest;
+		}
+	}
+
+	&Content {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+}

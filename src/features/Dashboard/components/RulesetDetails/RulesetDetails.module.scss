@@ -1,0 +1,48 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.page {
+	background: #fff;
+	padding: $spacing-5 $spacing-7;
+	margin: $spacing-2;
+	height: calc(100vh - 70px);
+	max-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.cardOuterContainer {
+	overflow: auto;
+	flex: 1;
+	overflow-x: hidden;
+	.cardInnerContent {
+		padding: $spacing-6;
+		margin-bottom: $spacing-6;
+		background: #f6f6f6;
+		border-radius: $border-radius-default;
+		display: flex;
+		align-items: center;
+
+		span {
+			margin-right: $spacing-6;
+		}
+
+		@media screen and (max-width: $breakpoint-medium) {
+			padding: $spacing-6 $spacing-3;
+			span {
+				margin-right: $spacing-3;
+			}
+		}
+	}
+}
+
+.emptyCardContent {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.publishBtn {
+	align-self: flex-end;
+	margin-top: $spacing-4;
+}

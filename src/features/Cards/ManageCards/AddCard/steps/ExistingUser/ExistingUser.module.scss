@@ -1,0 +1,52 @@
+@import '@fs-design/pantry/src/index';
+
+.container {
+	display: block;
+	margin: 29px auto;
+
+	& > button {
+		padding: 6px 6px 6px 0;
+	}
+}
+
+.header {
+	font-size: 20px;
+	line-height: 140%;
+	color: $color-gray-900;
+	font-family: $font-family-heading;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: $spacing-6;
+	margin-bottom: $spacing-3;
+
+	& > button {
+		padding: 2px;
+	}
+}
+
+.message {
+	display: inline-block;
+	font-family: $font-family-body;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	color: $color-gray-700;
+	line-height: 150%;
+	margin-bottom: $spacing-6;
+}
+
+.actionMenu {
+	text-align: right;
+	padding-right: 16px;
+}
+
+.userList {
+	display: flex;
+	flex-flow: column;
+	gap: $spacing-5;
+	height: calc(100vh - 400px);
+	overflow: auto;
+	margin-bottom: $spacing-6;
+	padding-right: 16px;
+}

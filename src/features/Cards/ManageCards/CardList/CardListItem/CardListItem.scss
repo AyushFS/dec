@@ -1,0 +1,245 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.card-list-item-component {
+	font-family: 'Inter';
+	font-style: normal;
+
+	.d-flex {
+		display: flex;
+		align-items: center;
+	}
+
+	.card-list-item {
+		cursor: pointer;
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		border-bottom: 1px solid transparent;
+		margin-bottom: 16px;
+
+		@media screen and (max-width: 568px) {
+			border-bottom-color: #e0e0e0;
+			margin-bottom: 0px;
+		}
+
+		.spacer {
+			flex-grow: 1;
+		}
+
+		.card-list-item__image_container {
+			.card-list-item__image {
+				position: relative;
+
+				.credit-card,
+				img {
+					display: block;
+					width: 127px;
+					height: 80px;
+
+					@media screen and (max-width: 568px) {
+						width: 108px;
+						height: 68px;
+					}
+				}
+
+				.card-list_item__image_status_icon {
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					transform: translate(50%, 50%);
+
+					.card-list-item__status_icon {
+						display: flex;
+						width: 12px;
+						height: 12px;
+						background-color: #757575;
+						border-radius: 50%;
+
+						&.locked,
+						&.cancelled {
+							background-color: #757575;
+						}
+
+						&.activation-pending {
+							background-color: $l-primary;
+						}
+
+						&.active {
+							background-color: #08c0a6;
+						}
+
+						.fs-icon {
+							position: absolute;
+							bottom: 50%;
+							right: 50%;
+							transform: translate(50%, 50%);
+
+							svg {
+								path {
+									fill: #fff;
+								}
+							}
+						}
+
+						span {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+
+		.card-list-item__details {
+			display: flex;
+			flex-direction: row;
+			flex-grow: 1;
+
+			.card-list-item__details_meta {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+
+				@media screen and (max-width: 568px) {
+					justify-content: space-between;
+				}
+
+				.card-list-item__name {
+					font-weight: 500;
+					font-size: 14px;
+					line-height: 150%;
+					font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+
+					@media screen and (min-width: 569px) {
+						margin-bottom: 6px;
+					}
+
+					.card-list-item__card-number {
+						margin-left: 12px;
+						font-weight: 400;
+						font-size: 14px;
+						line-height: 150%;
+						font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+						color: #757575;
+
+						@media screen and (max-width: 568px) {
+							margin-left: 0;
+							display: block;
+						}
+					}
+				}
+
+				.card-list-item__meta {
+					display: flex;
+					flex-direction: row;
+
+					.card-list-item__role {
+						font-weight: 400;
+						font-size: 14px;
+						line-height: 150%;
+						font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+						color: #757575;
+						margin-right: 16px;
+					}
+
+					.card-list-item__status {
+						display: flex;
+						align-items: center;
+						font-weight: 500;
+						font-size: 12px;
+						line-height: 150%;
+						text-transform: uppercase;
+						font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+						color: #757575;
+
+						.card-list-item__status_icon {
+							position: relative;
+							display: flex;
+
+							svg {
+								position: absolute;
+								top: 50%;
+								left: 50%;
+								transform: translate(-50%, -50%);
+							}
+
+							&.locked,
+							&.cancelled {
+								color: #757575;
+
+								svg path {
+									fill: #757575;
+								}
+							}
+
+							&.activation-pending {
+								color: #3e7eff;
+
+								svg path {
+									fill: #3e7eff;
+								}
+							}
+
+							&.active {
+								color: #08c0a6;
+
+								svg path {
+									fill: #08c0a6;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.card-list-item__amount {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				text-align: right;
+
+				@media screen and (max-width: 568px) {
+					display: none;
+				}
+
+				.card-list-item__amount-spend {
+					.card-list-item__amount-spend-value {
+						font-weight: 500;
+						font-size: 16px;
+						line-height: 140%;
+						/* or 22px */
+
+						display: flex;
+						align-items: center;
+						text-align: right;
+
+						color: #000000;
+					}
+				}
+
+				.card-list-item__amount-limit {
+					.card-list-item__amount-limit-value {
+						font-weight: 400;
+						font-size: 14px;
+						line-height: 150%;
+						font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+						color: #757575;
+					}
+				}
+			}
+		}
+
+		.card-list-item__action {
+			display: flex;
+			align-items: center;
+		}
+
+		&:hover,
+		&.selected {
+			background-color: #f6f6f6;
+
+			.card-list-item__amount .card-list-item__amount-spend .card-list-item__amount-spend-value {
+				color: $l-primary;
+			}
+		}
+	}
+}

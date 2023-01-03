@@ -1,0 +1,31 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.container,
+.right_section,
+.action {
+	display: flex;
+}
+
+.right_section,
+.action {
+	justify-content: space-between;
+}
+
+.container {
+	div {
+		margin-bottom: $spacing-2;
+	}
+}
+
+.left_section {
+	flex: 1;
+}
+
+.header {
+	margin-bottom: $spacing-7 !important;
+}
+
+.right_section {
+	flex-direction: column;
+	min-width: 150px;
+}

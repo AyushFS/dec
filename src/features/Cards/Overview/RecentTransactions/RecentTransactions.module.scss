@@ -1,0 +1,49 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.RecentTransactions {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 16px;
+	width: 100%;
+
+	.recentTransactionTable {
+		> div > div {
+			height: auto;
+		}
+	}
+
+	.secureTransactionNoteWrapper {
+		display: flex;
+		justify-content: center;
+
+		.secureTransactionNote {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			padding: $spacing-3 $spacing-4;
+			gap: 4px;
+			background: #f6f6f6;
+			border-radius: 24px;
+
+			span {
+				font-family: $font-family-body;
+				font-style: normal;
+				font-weight: $font-weight-medium;
+				font-size: 14px;
+				line-height: 150%;
+				font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+				color: $l-base-gray;
+			}
+
+			svg {
+				height: 100%;
+				width: 100%;
+
+				path {
+					fill: $l-base-gray-lighter;
+				}
+			}
+		}
+	}
+}

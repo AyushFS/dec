@@ -1,0 +1,54 @@
+name: Run checks on Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  run-pull-request-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache Node.js modules
+        id: cache-npm-modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-npm-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ runner.OS }}-npm-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ env.cache-name }}-
+            ${{ runner.OS }}-npm-
+            ${{ runner.OS }}-
+
+      - name: List the state of node modules
+        if: ${{ steps.cache-npm-modules.outputs.cache-hit == 'false' }}
+        continue-on-error: true
+        run: npm list
+
+      - name: Install Node Dependencies
+        if: steps.cache-npm-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run Test cases
+        run: npm run test:coverage
+
+      - name: Build
+        run: npm run build

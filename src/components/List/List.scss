@@ -1,0 +1,75 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.list {
+	display: block;
+	position: static;
+	transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	font-size: 14px;
+
+	.list-item {
+		align-items: center;
+		display: flex;
+		flex: 1 1 100%;
+		letter-spacing: normal;
+		line-height: 24px;
+		outline: none;
+		padding: 0 24px;
+		margin: 32px 0;
+		position: relative;
+		text-decoration: none;
+
+		.list-item__title {
+			flex: 1 1 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+
+			a {
+				color: $l-base-gray-darker;
+			}
+		}
+
+		.list-item--prepend,
+		.list-item--append {
+			margin: 0 10px;
+
+			svg {
+				path {
+					fill: $l-base-gray;
+				}
+			}
+
+			.icon {
+				display: flex;
+			}
+		}
+
+		&.list-item--active {
+			border-right: 3px solid $l-primary;
+		}
+
+		&.list-item--active-child,
+		&.list-item--active {
+			.list-item--prepend,
+			.list-item--append {
+				svg {
+					path {
+						fill: $l-primary;
+					}
+				}
+			}
+		}
+	}
+
+	.list-group__items {
+		flex: 1 1 auto;
+
+		.list-item {
+			padding-left: 48px;
+		}
+	}
+
+	.icon {
+		display: inline-block;
+	}
+}

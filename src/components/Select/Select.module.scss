@@ -1,0 +1,24 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/select/index';
+@import '@fs-design/pantry/src/components/form-control/index';
+
+.formControl {
+	composes: form-control;
+	text-transform: capitalize;
+}
+
+.formSelect {
+	composes: form-select;
+}
+
+.formControlError {
+	composes: form-control__error;
+}
+
+.formLabel {
+	composes: form-label;
+}
+
+.hasError {
+	composes: has-error;
+}

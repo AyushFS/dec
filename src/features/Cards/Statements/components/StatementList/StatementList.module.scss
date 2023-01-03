@@ -1,0 +1,63 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.StatementList {
+	.header,
+	.row {
+		display: flex; /* aligns all child elements (flex items) in a row */
+		height: 60px;
+		border-radius: 4px;
+
+		.right {
+			justify-content: flex-end;
+		}
+	}
+
+	.row {
+		margin-bottom: $spacing-3;
+
+		&:hover,
+		&.active {
+			background: #f6f6f6;
+
+			.goToLink {
+				svg {
+					path {
+						fill: $l-primary;
+					}
+				}
+			}
+		}
+	}
+
+	.col {
+		display: flex;
+		flex: 1; /* distributes space on the line equally among items */
+		align-items: center;
+		padding: 18px 16px;
+	}
+
+	.headerText {
+		font-family: $font-family-body;
+		font-style: normal;
+		font-weight: $font-weight-medium;
+		font-size: 12px;
+		line-height: 150%;
+		text-transform: uppercase;
+		font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+		color: $l-base-gray;
+	}
+
+	.date {
+		font-family: $font-family-heading;
+		font-size: 16px;
+		line-height: 150%;
+		font-feature-settings: 'tnum' on, 'lnum' on;
+		color: $l-base-gray-darker;
+	}
+
+	.actions {
+		button {
+			padding: 0;
+		}
+	}
+}

@@ -1,0 +1,81 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.BankDetails {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	padding: $spacing-5;
+	background: #f6f6f6;
+	border-radius: 8px;
+	gap: 20px;
+
+	font-family: $font-family-body;
+	font-style: normal;
+	line-height: 150%;
+	font-feature-settings: 'tnum' on, 'lnum' on, 'cv08' on;
+
+	&Item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: $spacing-0;
+		gap: 32px;
+
+		&Data {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			flex-grow: 1;
+
+			@media screen and (max-width: $breakpoint-small) {
+				display: block;
+				flex-direction: column;
+				flex-grow: 0;
+			}
+		}
+
+		&Title {
+			font-weight: $font-weight-normal;
+			font-size: 14px;
+			color: $l-base-gray-darker;
+		}
+
+		&Value {
+			font-weight: $font-weight-medium;
+			font-size: 16px;
+			text-align: right;
+			color: $l-base-gray-darker;
+		}
+
+		&Copy {
+			font-weight: $font-weight-medium;
+			font-size: 14px;
+			color: $l-primary;
+		}
+	}
+
+	button {
+		margin: -5px 0;
+	}
+}
+
+.HighlightMessage {
+	font-size: 12px;
+	font-weight: $font-weight-medium;
+	color: $l-base-gray-darker;
+	margin: $spacing-3 0;
+}
+
+.highlightIcon {
+	display: inline-block;
+	font-size: 12px;
+	background-color: $color-green-100;
+	border: 1px solid $color-green-300;
+	color: $l-primary;
+	font-weight: $font-weight-medium;
+	border-radius: 4px;
+	margin-left: 4px;
+	padding: 0px 4px;
+}

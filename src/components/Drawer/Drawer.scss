@@ -1,0 +1,68 @@
+@import '@fs-design/pantry/src/base/variables';
+
+aside.app-drawer {
+	.drawer-content {
+		display: flex;
+		flex-direction: column;
+		// overflow-y: hidden;
+
+		position: fixed;
+		height: 100%;
+		margin-top: 64px;
+		transform: translateX(0px);
+		// width: 240px;
+		background-color: #fff;
+		border-right: 1px solid #e1e1e1;
+		z-index: 7;
+		opacity: 1;
+		transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		transition-property: transform, width, opacity, -webkit-transform;
+
+		&.is-mobile {
+			width: 100%;
+		}
+
+		&.drawer-content--collapsed {
+			transform: translateX(-100%);
+		}
+	}
+
+	.drawer-content__main {
+		height: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	.drawer-content__header {
+		border-bottom: 1px solid transparent;
+	}
+
+	.drawer-content__footer {
+		border-top: 1px solid #ddd;
+	}
+
+	.drawer-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 6;
+		opacity: 0;
+		transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		transition-property: opacity;
+	}
+}
+
+aside.alignRight {
+	.drawer-content {
+		right: 0;
+		top: 64px + $spacing-2;
+		z-index: 1;
+		max-height: calc(100% - 64px);
+		&.drawer-content--collapsed {
+			transform: translateX(100%);
+		}
+	}
+}

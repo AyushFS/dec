@@ -1,0 +1,118 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.transactionDetails {
+	margin-bottom: $spacing-6;
+	gap: $font-size-default;
+	display: flex;
+	flex-direction: column;
+
+	.infoBoxContent {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 16px 0px;
+		gap: 8px;
+		background: $l-primary-lightest;
+		border-radius: 8px;
+		font-family: $font-family-body;
+		font-style: normal;
+
+		.totalTransactionAmountLabel {
+			font-weight: $font-weight-normal;
+			font-size: $font-size-small;
+			line-height: 150%;
+			color: $color-gray-900;
+		}
+
+		.totalTransactionAmount {
+			font-weight: $font-weight-medium;
+			font-size: 18px;
+			line-height: 140%;
+
+			.currency {
+				color: $color-gray-800;
+			}
+
+			.amount {
+				color: $color-gray-900;
+			}
+		}
+
+		.originalTransactionAmount {
+			font-family: $font-family-heading;
+			font-size: 15px;
+			line-height: 140%;
+
+			.currency {
+				color: $color-gray-700;
+			}
+
+			.amount {
+				color: $color-gray-800;
+			}
+		}
+	}
+
+	.fields {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+
+		.field {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			font-family: $font-family-body;
+			font-style: normal;
+			font-weight: $font-weight-medium;
+			line-height: 150%;
+
+			.label {
+				font-size: $font-size-small;
+				color: $color-gray-700;
+			}
+
+			.value {
+				font-size: $font-size-default;
+				color: $color-gray-900;
+			}
+
+			img {
+				vertical-align: middle;
+				padding-right: 4px;
+			}
+
+			.transactionStatus {
+				font-size: $font-size-caption;
+				padding: 4px 8px;
+				width: fit-content;
+				border-radius: 4px;
+			}
+
+			.success {
+				background: $color-green-000;
+				color: $color-green-500;
+			}
+
+			.fsmkApproved {
+				background: $color-green-000;
+				color: $color-green-500;
+			}
+
+			.reversal {
+				background: $color-yellow-100;
+				color: $color-yellow-900;
+			}
+
+			.refund {
+				background: $color-blue-100;
+				color: $color-blue-500;
+			}
+
+			.decline {
+				background: $color-red-100;
+				color: $color-red-500;
+			}
+		}
+	}
+}

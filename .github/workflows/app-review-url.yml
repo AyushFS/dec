@@ -1,0 +1,101 @@
+name: Generate app review url
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  UAT_AWS_ROLE_ARN: 'arn:aws:iam::${{ secrets.UAT_ACCOUNT_ID }}:role/DeployUAT'
+  S3_REPO: ${{ secrets.AWS_APP_REVIEW_S3_BUCKET }}/${{ github.event.repository.name }}/pr-${{ github.event.number }}
+  APP_REVIEW_URL: ${{ github.event.repository.name }}-pr-${{ github.event.number }}
+
+jobs:
+  create-deployment-preview:
+    if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GH_TOKEN }}
+          env: ${{ env.APP_REVIEW_URL }}
+          ref: ${{ github.head_ref }}
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.UAT_ACCOUNT_ID }}:role/GithubOpenIDConnect
+          role-session-name: UatOpenIDConnect
+          aws-region: 'ap-southeast-1'
+      - id: uat-assume-role
+        run: |
+          eval $(aws sts assume-role --role-arn ${{ env.UAT_AWS_ROLE_ARN }} --role-session-name terraform --external-id ${{ secrets.EXTERNAL_ID }} | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+
+      - name: Build
+        run: npm install && npm run build-app-review
+
+      - name: Upload to S3
+        run: |
+          aws s3 sync ./build/ s3://${{ env.S3_REPO }} --delete
+
+      - name: update Deployment Status
+        uses: bobheadxi/deployments@v1
+        with:
+          step: finish
+          token: ${{ secrets.GH_TOKEN }}
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: https://${{ env.APP_REVIEW_URL }}.preview.fsmk.asia/
+
+  delete-deployment-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=pr_number::${{github.event.number}}"
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.pr_number }}
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.UAT_ACCOUNT_ID }}:role/GithubOpenIDConnect
+          role-session-name: UatOpenIDConnect
+          aws-region: 'ap-southeast-1'
+      - id: uat-assume-role
+        run: |
+          eval $(aws sts assume-role --role-arn ${{ env.UAT_AWS_ROLE_ARN }} --role-session-name terraform --external-id ${{ secrets.EXTERNAL_ID }} | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+
+      - name: Clean up S3
+        run: |
+          aws s3 rm s3://${{ env.S3_REPO }} --recursive
+
+      - name: mark environment as deactivated
+        uses: bobheadxi/deployments@v1
+        with:
+          step: deactivate-env
+          token: ${{ secrets.GH_TOKEN }}
+          env: ${{ env.APP_REVIEW_URL }}
+          desc: Environment was pruned

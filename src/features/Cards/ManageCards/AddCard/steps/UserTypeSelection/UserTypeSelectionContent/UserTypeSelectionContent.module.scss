@@ -1,0 +1,84 @@
+@import '@fs-design/pantry/src/shared/variables/spacing/spacing';
+@import '@fs-design/pantry/src/shared/variables/colors/colors';
+@import '@fs-design/pantry/src/shared/variables/type/type';
+
+.modalContent {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	.header {
+		font-size: 2rem;
+		line-height: 140%;
+		color: $color-gray-900;
+		font-family: $font-family-heading;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.8rem;
+
+		& > button {
+			padding: 2px;
+		}
+	}
+
+	.message {
+		display: inline-block;
+		font-family: $font-family-body;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		color: $color-gray-700;
+		line-height: 150%;
+		margin-bottom: $spacing-6;
+	}
+
+	.userTypes {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: $spacing-6;
+
+		& > :first-child {
+			margin-right: $spacing-6;
+		}
+
+		& > div {
+			flex-grow: 1;
+		}
+	}
+
+	.actionMenu {
+		text-align: right;
+		flex-grow: 1;
+	}
+
+	@media screen and (max-width: 768px) {
+		padding: $spacing-5;
+		z-index: 5;
+		position: fixed;
+		bottom: 0;
+		top: 65px;
+		overflow: hidden;
+		right: 0;
+		left: 0;
+		width: 100%;
+		background: $color-white;
+
+		.userTypes {
+			flex-direction: column;
+
+			& > :first-child {
+				margin-bottom: $spacing-5;
+			}
+		}
+
+		.actionMenu {
+			display: flex;
+			align-items: flex-end;
+
+			button {
+				flex: 1 1;
+			}
+		}
+	}
+}

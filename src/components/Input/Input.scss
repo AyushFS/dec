@@ -1,0 +1,29 @@
+@import '@fs-design/pantry/src/base/index';
+@import '@fs-design/pantry/src/components/form-control/index';
+@import '@fs-design/pantry/src/components/input/index';
+@import '@fs-design/pantry/src/components/input-group/index';
+
+.formControl {
+	text-transform: capitalize;
+}
+
+.inputRadioContainer {
+	display: flex;
+	align-items: center;
+	height: 100%;
+
+	.inputRadio {
+		display: flex;
+		align-items: center;
+		margin-right: $spacing-4;
+		input[type='checkbox'],
+		input[type='radio'] {
+			position: static !important;
+			width: 1.25em;
+			height: 1.25em;
+			margin: 0;
+			opacity: 1 !important;
+			margin-right: $spacing-4;
+		}
+	}
+}

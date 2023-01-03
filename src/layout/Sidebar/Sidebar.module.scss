@@ -1,0 +1,15 @@
+.Sidebar {
+	&Header {
+		margin: 20px 16px 20px 32px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&ToggleDrawer {
+		display: none;
+		@media screen and (max-width: 768px) {
+			display: block;
+			margin-right: 10px;
+		}
+	}
+}

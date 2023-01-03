@@ -1,0 +1,60 @@
+@import '@fs-design/pantry/src/base/variables';
+
+.Snackbar {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	box-sizing: border-box;
+	animation-name: slideUp;
+	animation-duration: 0.3s;
+	animation-timing-function: ease-in-out;
+
+	&Body {
+		padding: 14px 24px;
+		line-height: 20px;
+		min-width: 284px;
+		max-width: 568px;
+		min-height: 48px;
+		background-color: #202124;
+		border-radius: 3px 3px 0 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&Title {
+		color: #fff;
+		font-size: 14px;
+	}
+
+	&CloseTrigger {
+		margin-left: $spacing-4;
+
+		svg {
+			path {
+				fill: #fff;
+			}
+		}
+	}
+
+	button {
+		padding: 5px 9px;
+		margin: -7px -9px -8px -9px;
+	}
+}
+
+@keyframes slideUp {
+	0%,
+	50% {
+		transform: translate(-50%, 50%);
+		opacity: 0;
+	}
+
+	60%,
+	100% {
+		transform: translate(-50%, 0);
+		opacity: 1;
+	}
+}

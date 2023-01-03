@@ -1,0 +1,156 @@
+name: Build and Deploy to Cloud
+
+on:
+  push:
+    branches:
+      - master
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  PROD_AWS_ROLE_ARN: 'arn:aws:iam::${{ secrets.PROD_ACCOUNT_ID }}:role/DeployProd'
+  UAT_AWS_ROLE_ARN: 'arn:aws:iam::${{ secrets.UAT_ACCOUNT_ID }}:role/DeployUAT'
+  STG_AWS_ROLE_ARN: 'arn:aws:iam::${{ secrets.STG_ACCOUNT_ID }}:role/DeployStage'
+  BUCKET_NAME_PROD: ${{ secrets.BUCKET_NAME_PROD }}
+  BUCKET_NAME_UAT: ${{ secrets.BUCKET_NAME_UAT }}
+  BUCKET_NAME_STG: ${{ secrets.BUCKET_NAME_STG }}
+  CLOUDFRONT_DISTRIBUTION_ID_PROD: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD }}
+  CLOUDFRONT_DISTRIBUTION_ID_UAT: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_UAT }}
+  CLOUDFRONT_DISTRIBUTION_ID_STG: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_STG }}
+
+jobs:
+  pre-deploy-checks:
+    name: '🧪 Test'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Checkout master branch
+        uses: actions/checkout@master
+
+      - name: Cache Node.js modules
+        id: cache-npm-modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-npm-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ runner.OS }}-node-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.cache-name }}-
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: List the state of node modules
+        if: ${{ steps.cache-npm-modules.outputs.cache-hit == 'false' }}
+        continue-on-error: true
+        run: npm list
+
+      - name: Install Node Dependencies
+        if: steps.cache-npm-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run Test cases
+        run: npm run test:coverage
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-to-cloud-based-on-push:
+    needs: pre-deploy-checks
+    name: '🚀 Build and deploy'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [STG, UAT]
+
+    steps:
+      - name: Configure Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Checkout master branch
+        uses: actions/checkout@master
+
+      - name: Cache Node.js modules
+        id: cache-npm-modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-npm-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ runner.OS }}-npm-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ env.cache-name }}-
+            ${{ runner.OS }}-npm-
+            ${{ runner.OS }}-
+
+      - name: List the state of node modules
+        if: ${{ steps.cache-npm-modules.outputs.cache-hit == 'false' }}
+        continue-on-error: true
+        run: npm list
+
+      - name: Install Node Dependencies
+        if: steps.cache-npm-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: 📦 Build App
+        run: npm run build
+
+      - name: Configure AWS Credentials
+        if: ${{ matrix.environment == 'STG' }}
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.STG_ACCOUNT_ID }}:role/GithubOpenIDConnect
+          role-session-name: StgOpenIDConnect
+          aws-region: 'ap-southeast-1'
+      - name: 🚢 Ship to Cloud (STG)
+        id: stg-assume-role
+        if: ${{ matrix.environment == 'STG' }}
+        run: |
+          eval $(aws sts assume-role --role-arn ${{ env.STG_AWS_ROLE_ARN }} --role-session-name terraform --external-id ${{ secrets.EXTERNAL_ID }} | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+          aws s3 sync ./build/ s3://${{ env.BUCKET_NAME_STG }} --delete
+          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID_STG }} --paths "/*"
+
+      - name: Configure AWS Credentials
+        if: ${{ matrix.environment == 'UAT' }}
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.UAT_ACCOUNT_ID }}:role/GithubOpenIDConnect
+          role-session-name: UatOpenIDConnect
+          aws-region: 'ap-southeast-1'
+      - name: 🚢 Ship to Cloud (UAT)
+        id: uat-assume-role
+        if: ${{ matrix.environment == 'UAT' }}
+        run: |
+          eval $(aws sts assume-role --role-arn ${{ env.UAT_AWS_ROLE_ARN }} --role-session-name terraform --external-id ${{ secrets.EXTERNAL_ID }} | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+          aws s3 sync ./build/ s3://${{ env.BUCKET_NAME_UAT }} --delete
+          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID_UAT }} --paths "/*"
+
+      - name: Configure AWS Credentials
+        if: ${{ matrix.environment == 'PROD' }}
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.PROD_ACCOUNT_ID }}:role/GithubOpenIDConnect
+          role-session-name: ProdOpenIDConnect
+          aws-region: 'ap-southeast-1'
+      - name: 🚢 Ship to Cloud (PROD)
+        id: prod-assume-role
+        if: ${{ matrix.environment == 'PROD' }}
+        run: |
+          eval $(aws sts assume-role --role-arn ${{ env.PROD_AWS_ROLE_ARN }} --role-session-name terraform --external-id ${{ secrets.EXTERNAL_ID }} | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+          aws s3 sync ./build/ s3://${{ env.BUCKET_NAME_PROD }} --delete
+          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID_PROD }} --paths "/*"

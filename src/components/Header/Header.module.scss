@@ -1,0 +1,30 @@
+@import '@fs-design/pantry/src/base/variables';
+@import '@fs-design/pantry/src/components/navigation-bar/_index.scss';
+
+.Header {
+	composes: nav;
+
+	&Bar {
+		composes: navbar;
+		min-height: auto;
+	}
+
+	&NavTrigger {
+		display: none;
+		@media screen and (max-width: 768px) {
+			display: block;
+			margin-left: -18px;
+			margin-top: -5px;
+			margin-bottom: -5px;
+		}
+	}
+
+	&PageTitle {
+		font-family: $font-family-body;
+		font-style: normal;
+		font-weight: $font-weight-medium;
+		font-size: 18px;
+		line-height: 140%;
+		color: $l-base-gray-darkest;
+	}
+}

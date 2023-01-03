@@ -1,0 +1,12 @@
+{
+	"access_token": "d989a9e9",
+	"auth_user_uuid": "7bd812d7",
+	"email": "test@gtest.com",
+	"expires_in": 299,
+	"mobile_number": "+65******12",
+	"next_step": "2fa",
+	"refresh_token": "59e254c0",
+	"scope": "read",
+	"token_type": "bearer",
+	"totp_expires_in": 180000
+}

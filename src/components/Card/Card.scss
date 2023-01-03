@@ -1,0 +1,34 @@
+@import '@fs-design/pantry/src/base/index';
+@import '@fs-design/pantry/src/components/card/index';
+@import '@fs-design/pantry/src/utilities/spacing';
+
+.card {
+	.card-body {
+		display: flex;
+		justify-items: center;
+		align-items: center;
+		flex-basis: content;
+	}
+
+	.card__content {
+		flex-basis: auto;
+		flex-grow: 1;
+	}
+
+	.card__icon {
+		display: flex;
+
+		&.default {
+			flex-basis: 50px;
+		}
+
+		&.small {
+			flex-basis: 20px;
+		}
+
+		img {
+			width: 100%;
+			display: inline-block;
+		}
+	}
+}
