@@ -24,12 +24,6 @@ jest.mock('./features/Auth/useAuth', () => ({
 	__esModule: true,
 }));
 
-jest.mock('react-use-intercom', () => ({
-	useIntercom: () => ({
-		boot: mockBoot,
-	}),
-}));
-
 jest.mock('./features/Monitoring/useMonitoring', () => ({
 	default: () => ({
 		initDatadog: mockInitDatadog,

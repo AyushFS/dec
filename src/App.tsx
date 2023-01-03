@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { withLDConsumer } from 'launchdarkly-react-client-sdk';
-import { useIntercom } from 'react-use-intercom';
 import RoutesConfig from './routes';
 import Layout from './layout/Layout';
-import useAuth from './features/Auth/useAuth';
+
 import useMonitoring from './features/Monitoring/useMonitoring';
 import Tooltip from './components/Tooltip/Tooltip';
 import Snackbar from './components/Snackbar';
@@ -14,15 +13,12 @@ import createRoutes from './common/utilities/createRoutes';
 
 function App() {
 	const { t } = useTranslation();
-	const { auth } = useAuth();
+
 	const location = useLocation();
 	const history = useNavigate();
 	const { snackbar, setSnackbar } = useGlobalState();
 	const { initDatadog } = useMonitoring();
-	const { boot } = useIntercom();
-	boot({
-		name: auth?.first_name,
-	});
+
 	initDatadog();
 
 	const onSnackbarDismiss = () => {

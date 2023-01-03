@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { withLDProvider } from 'launchdarkly-react-client-sdk';
-import { IntercomProvider } from 'react-use-intercom';
 import ENVIRONMENT from './environments/environment';
 import { GlobalStateProvider } from './features/GlobalState/GlobalStateProvider';
 import './index.scss';
@@ -23,13 +22,11 @@ root.render(
 	// <React.StrictMode>
 	<QueryClientProvider client={queryClient}>
 		<GlobalStateProvider>
-			<IntercomProvider appId={ENVIRONMENT.intercomAppID}>
-				<BrowserRouter>
-					<Routes>
-						<Route path="/*" element={<LDProvider />} />
-					</Routes>
-				</BrowserRouter>
-			</IntercomProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/*" element={<LDProvider />} />
+				</Routes>
+			</BrowserRouter>
 		</GlobalStateProvider>
 	</QueryClientProvider>
 	// </React.StrictMode>
