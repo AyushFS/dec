@@ -9,6 +9,7 @@ interface CardProps {
 	cardPadding?: number;
 	contentPadding?: number;
 	backgroundColor?: string;
+	inactive?: boolean;
 }
 
 const isValidInteger = (num?: number) => {
@@ -16,8 +17,8 @@ const isValidInteger = (num?: number) => {
 };
 
 const Card: ReactFCC<CardProps> = (props) => {
-	const { cardPadding, contentPadding, icon, iconSize, borderRadius, backgroundColor } = props;
-	const cardClassNames = [`card p-${isValidInteger(cardPadding) ? cardPadding : 6}`]
+	const { cardPadding, contentPadding, icon, iconSize, borderRadius, backgroundColor, inactive } = props;
+	const cardClassNames = [`card p-${isValidInteger(cardPadding) ? cardPadding : 6}`, inactive ? 'inactive' : '']
 		.filter((val) => val)
 		.join(' ')
 		.trim();
@@ -41,6 +42,7 @@ const Card: ReactFCC<CardProps> = (props) => {
 		className: cardClassNames,
 		style: styles,
 	};
+
 	return (
 		<div {...attributes} data-testid="card">
 			<div className="card-body">

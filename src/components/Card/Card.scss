@@ -3,6 +3,9 @@
 @import '@fs-design/pantry/src/utilities/spacing';
 
 .card {
+	box-shadow: none !important;
+	border: 1px solid #e0e0e0;
+
 	.card-body {
 		display: flex;
 		justify-items: center;
@@ -31,4 +34,8 @@
 			display: inline-block;
 		}
 	}
+}
+
+.inactive {
+	border: 1px solid #cccccc;
 }

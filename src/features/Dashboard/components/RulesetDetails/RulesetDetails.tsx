@@ -5,7 +5,6 @@ import styles from './RulesetDetails.module.scss';
 import Button, { ButtonColors } from '../../../../components/Button';
 import svgIcons from '../../../../components/FsIcon/FsIconSvg';
 import Card from '../../../../components/Card';
-import FsIcon from '../../../../components/FsIcon';
 import Filter from '../Filter/Filter';
 import Rule from '../Rule/Rule';
 import AddRule from '../AddRule/AddRule';
@@ -25,13 +24,15 @@ function RulesetDetails() {
 
 	return (
 		<div className={styles.page}>
-			<div>
+			<div className={styles.headNav}>
 				<Button link onClick={() => history(-1)}>
-					{svgIcons.Arrowleft} Back
+					{svgIcons.Arrowleft} <span>Back</span>
 				</Button>
 			</div>
-			<div>
-				<h5>{selectedRuleset.ruleset_name}</h5>
+			<div className={styles.headtext}>
+				<h5>
+					{selectedRuleset.ruleset_name} {svgIcons.Pen}
+				</h5>
 				<span>Drag cards to reorder the rules</span>
 			</div>
 			{/* Filter section */}
@@ -48,8 +49,8 @@ function RulesetDetails() {
 					<div className={styles.cardInnerContent}>
 						<Card>
 							<div className={styles.emptyCardContent}>
-								<FsIcon size={24}>transaction-lined</FsIcon>
-								<span>No rules added yet</span>
+								{svgIcons.Rule}
+								<div>No rules added yet</div>
 								<Button
 									link
 									onClick={() => {

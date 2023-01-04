@@ -52,16 +52,19 @@ const Input: ReactFCC<InputProps> = (props) => {
 	return (
 		<div className={formFieldClassNames} data-testid="input-form-control">
 			{label && (
-				<label htmlFor={inputId} className="form-label">
+				<label
+					htmlFor={inputId}
+					className={`form-label ${restOfTheAttributes.disabled ? 'disableLabel' : ''} ${isView ? 'biggerlabel' : ''}`}
+				>
 					{label}
 					{required && '*'}
 				</label>
 			)}
 			{isView ? (
 				type !== 'radio' ? (
-					restOfTheAttributes.value
+					<div className="biggerText">{restOfTheAttributes.value}</div>
 				) : (
-					restOfTheAttributes.selected
+					<div className="biggerText">{restOfTheAttributes.selected}</div>
 				)
 			) : (
 				<div className={prefix || suffix ? 'input-group' : undefined}>

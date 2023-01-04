@@ -4,16 +4,24 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
+	font-size: 14px;
+
+	button:hover {
+		transform: translateY(0);
+		box-shadow: none;
+	}
 }
 
 .btn {
-	width: 60px;
-	height: 5px;
+	width: 48px;
+	padding: 2px;
+	height: 15px;
 	position: relative;
 	background: #cccccc;
 	border-radius: 50px;
 	border: solid 1px #cccccc;
 	outline: none;
+	box-shadow: none;
 }
 
 .onBtn {
@@ -23,10 +31,10 @@
 
 .circle {
 	position: absolute;
-	top: -7px;
+	top: -5px;
 	left: 0;
-	width: 30px;
-	height: 30px;
+	width: 24px;
+	height: 24px;
 	background: #8f8f8f;
 	border-radius: 40px;
 	transition: all 0.2s cubic-bezier(0, 0, 0.46, 1.82);
@@ -34,7 +42,7 @@
 }
 
 .on {
-	left: 82px;
+	left: 78px;
 	margin-left: -54px;
 	background: #06c0a6;
 }

@@ -9,12 +9,11 @@ import Logo from '../../assets/images/logo.png';
 import FsIcon from '../../components/FsIcon';
 import Button from '../../components/Button';
 import useGlobalState from '../../features/GlobalState/useGlobalState';
+import Footer from '../Footer/Footer';
 import styles from './Sidebar.module.scss';
 
 const sideMenuFromRoutes: any = (setSelected: (path: string) => boolean) =>
 	createSideMenuItem(Routes, '/', MenuFilterOnlyOptions.isInSideMenu, setSelected);
-const sideMenuFooterFromRoutes: any = (setSelected: (path: string) => boolean) =>
-	createSideMenuItem(Routes, '/', MenuFilterOnlyOptions.isInSideMenuFooter, setSelected);
 
 interface SidebarProps {
 	drawerAttrs: {
@@ -60,11 +59,17 @@ const Sidebar: ReactFCC<SidebarProps> = (props) => {
 							</Button>
 						</span>
 					</div>
-					<hr className={styles.SidebarRuler} />
+					<div className={styles.container}>
+						<div className={styles.appName}>Decision Engine</div>
+						<div className={styles.user}>Alwin Tantowi</div>
+						<div className={styles.salesID}>Sales_ID</div>
+						<div className={styles.country}>Indonesia</div>
+						<hr className={styles.rule} />
+					</div>
 				</>
 			}
 			content={<List items={sideMenuFromRoutes(setSelected)} onSelectCallback={onSelectCallback} />}
-			footer={<List items={sideMenuFooterFromRoutes(setSelected)} onSelectCallback={onSelectCallback} />}
+			footer={<Footer />}
 			// footer={<div>2021</div>}
 		/>
 	);

@@ -11,16 +11,6 @@
 		padding: 0;
 	}
 
-	// &Item {
-	// composes: nav-menu__item;
-	// margin-left: 0 !important;
-
-	// a {
-	// 	padding: 0 !important;
-	// 	background: none !important;
-	// }
-	// }
-
 	&Active {
 		font-weight: bold;
 	}
@@ -30,5 +20,19 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		button {
+			box-shadow: none;
+			border: none;
+			padding: 0;
+			margin: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		button:hover {
+			box-shadow: none;
+		}
 	}
 }

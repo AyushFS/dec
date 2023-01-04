@@ -31,7 +31,7 @@ const TwoBtnModal = ({
 			onCloseModal={handleModalToggle}
 			title={title || 'Are you sure you want to delete?'}
 		>
-			<p>{msg || 'You will loose all the information that you added.'}</p>
+			<p className={styles.description}>{msg || 'You will loose all the information that you added.'}</p>
 			<div className={styles.modal_btns}>
 				<Button color={ButtonColors.secondary} onClick={handleFirstBtn}>
 					{firstBtnText || 'No'}

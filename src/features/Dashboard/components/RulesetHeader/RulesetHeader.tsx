@@ -81,7 +81,12 @@ const RulesetHeader = () => {
 							/>
 						</div>
 						<div className={styles.col}>
-							<Select options={group_types} onChange={() => {}} label="Group" />
+							<Select
+								selected={currentRuleset.country}
+								options={group_types}
+								onChange={(e: string) => handleUpdateRuleset('country', e)}
+								label="Group"
+							/>
 						</div>
 					</div>
 				</div>

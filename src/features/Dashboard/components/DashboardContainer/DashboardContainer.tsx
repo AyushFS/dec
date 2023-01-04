@@ -21,7 +21,11 @@ const DashboardContainer = () => {
 					{rulesets.length &&
 						rulesets.map((ruleset: any) => (
 							<div className={styles.col} key={ruleset.id}>
-								<Card cardPadding={0} backgroundColor={ruleset.status === 'inactive' ? '#f1f1f2' : ''}>
+								<Card
+									cardPadding={0}
+									backgroundColor={ruleset.status === 'inactive' ? '#f1f1f2' : ''}
+									inactive={ruleset.status === 'inactive'}
+								>
 									<Ruleset ruleset={ruleset} />
 								</Card>
 							</div>

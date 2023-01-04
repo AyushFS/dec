@@ -7,6 +7,7 @@
 	align-items: center;
 	padding: $spacing-4 $spacing-6;
 	font-family: 'Inter';
+	font-size: 20px;
 }
 
 .outerContainer {
@@ -25,10 +26,9 @@
 	composes: row;
 	min-width: 100%;
 	gap: 10px;
-	padding: 0;
 	margin: 0;
 	div {
-		padding-bottom: 0;
+		padding-bottom: $spacing-2;
 	}
 }
 

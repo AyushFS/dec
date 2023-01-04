@@ -31,7 +31,25 @@ const rule_execution_mode = [
 	{ value: 'linear', label: 'Linear Execution' },
 ];
 
-const rule_execution_default = { value: '', label: 'Insert Rule Execution Mode', disabled: true };
+const rule_execution_default = { value: '', label: 'Insert Rule Execution Mode' };
+
+const default_condition_states = {
+	input: [{ name: 'A', comparator: '', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
+	output: { pass: { output_type: '', value: '' }, fail: { output_type: '', value: '' } },
+	conditions: [
+		{
+			name: 'A',
+			comparator: '',
+			factor: '',
+			operator: '',
+			value: '',
+			startValue: '',
+			endValue: '',
+			output_type: '',
+			output_value: '',
+		},
+	],
+};
 
 const defaultRuleValues = {
 	rule_id: '',
@@ -74,6 +92,10 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		switch (key) {
 			case 'rule_name':
 			case 'output_type':
+				setRule((preV: any) => {
+					return { ...preV, [key]: value, ...default_condition_states };
+				});
+				break;
 			case 'status':
 			case 'description':
 			case 'rule_execution_mode':

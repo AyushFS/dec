@@ -27,10 +27,10 @@ const Select: FC<SelectProps> = memo(
 		const errMessage = typeof errorMessage === 'function' ? errorMessage() : errorMessage;
 
 		return (
-			<div className={`${styles.formControl} ${hasError ? styles.hasError : ''}`}>
-				{label && <label className={styles.formLabel}>{label}</label>}
+			<div className={`${styles.formControl} ${hasError ? styles.hasError : ''} `}>
+				{label && <label className={`${styles.formLabel}  ${isView ? styles.biggerlabel : ''}`}>{label}</label>}
 				{isView ? (
-					selected
+					<div className={styles.biggerText}>{selected}</div>
 				) : (
 					<div className={styles.formSelect}>
 						<select

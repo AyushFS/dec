@@ -12,7 +12,12 @@
 	flex: 1;
 
 	div {
-		margin-left: $spacing-3;
+		margin-left: 16px;
+		font-size: 14px;
+	}
+
+	h5 {
+		font-size: 20px;
 	}
 }
 

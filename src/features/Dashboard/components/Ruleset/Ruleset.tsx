@@ -5,6 +5,7 @@ import RulesetDropdown from '../RulesetDropdown/RulesetDropdown';
 import Button from '../../../../components/Button';
 import styles from './Ruleset.module.scss';
 import UseDashboard from '../../UseDashboard';
+import svgIcons from '../../../../components/FsIcon/FsIconSvg';
 
 const Ruleset = ({ ruleset }: any) => {
 	const [isActive, setIsActive] = useState(false);
@@ -54,19 +55,24 @@ const Ruleset = ({ ruleset }: any) => {
 			{/* left section */}
 			<div className={styles.left_section}>
 				<div className={styles.header}>
-					<div>{ruleset.ruleset_name}</div>
-					<div>{ruleset.description}</div>
+					<div className={styles.name}>{ruleset.ruleset_name}</div>
+					<div className={styles.description}>{ruleset.description}</div>
 				</div>
-				<div>
-					{ruleset.id} <span>|</span> {ruleset.country}
+				<div className={styles.content}>
+					{ruleset.id} <span className={styles.divider}>|</span> {ruleset.country}
 				</div>
-				<div>No. of Rules {ruleset.rules.length}</div>
-				<div>Version {ruleset.version}</div>
-				<div>
-					Created By {ruleset.creator} on {ruleset.created_on}
+				<div className={styles.content}>
+					<span>No. of Rules </span>
+					{ruleset.rules.length}
 				</div>
-				<div>
-					Last Updated By {ruleset.creator} on {ruleset.updated_on}
+				<div className={styles.content}>
+					<span>Version</span> {ruleset.version}
+				</div>
+				<div className={styles.content}>
+					<span>Created By</span> {ruleset.creator} on {ruleset.created_on}
+				</div>
+				<div className={styles.content}>
+					<span>Last Updated By</span> {ruleset.creator} on {ruleset.updated_on}
 				</div>
 			</div>
 			{/* right section */}
@@ -76,7 +82,7 @@ const Ruleset = ({ ruleset }: any) => {
 					<RulesetDropdown on={openDropdown} rulesetId={ruleset.id} onClick={() => handleToggle('dropdown')} />
 				</div>
 				<Button flat hovered link onClick={handleViewRuleset}>
-					View Ruleset &gt;
+					View Ruleset {svgIcons.ArrowRBlue}
 				</Button>
 			</div>
 		</div>
