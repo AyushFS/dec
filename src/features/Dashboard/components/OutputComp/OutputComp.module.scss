@@ -9,7 +9,10 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: $spacing-6;
+	margin-top: $spacing-6;
 	text-transform: capitalize;
+	font-size: 16px;
+	color: $color-gray-900;
 }
 
 .container {

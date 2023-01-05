@@ -34,7 +34,11 @@ const custom_options = [{ value: '', label: '' }];
 export const Content = ({ title, data, update, isMulti, isView }: ContentProps) => {
 	return (
 		<>
-			{title && <div className={styles.head}>Condition: {title}</div>}
+			{title && (
+				<div className={styles.head}>
+					{isMulti ? 'Output:' : ''} {title}
+				</div>
+			)}
 			<div className={styles.inputContainer}>
 				<div className={styles.row}>
 					<div className={styles.col}>

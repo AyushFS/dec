@@ -163,7 +163,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 					{showOutput && (
 						<>
 							<hr />
-							<Content title="" data={condition} update={handleOutputChange} isMulti isView={isView} />
+							<Content title={condition.name} data={condition} update={handleOutputChange} isMulti isView={isView} />
 						</>
 					)}
 				</div>
