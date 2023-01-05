@@ -34,18 +34,18 @@ const rule_execution_mode = [
 const rule_execution_default = { value: '', label: 'Insert Rule Execution Mode' };
 
 const default_condition_states = {
-	input: [{ name: 'A', comparator: '', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
-	output: { pass: { output_type: '', value: '' }, fail: { output_type: '', value: '' } },
+	input: [{ name: 'A', comparator: 'static', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
+	output: { pass: { output_type: 'string', value: '' }, fail: { output_type: 'string', value: '' } },
 	conditions: [
 		{
 			name: 'A',
-			comparator: '',
+			comparator: 'static',
 			factor: '',
 			operator: '',
 			value: '',
 			startValue: '',
 			endValue: '',
-			output_type: '',
+			output_type: 'string',
 			output_value: '',
 		},
 	],
@@ -59,18 +59,18 @@ const defaultRuleValues = {
 	description: '',
 	rule_execution_mode: '',
 	logical_expression: '',
-	input: [{ name: 'A', comparator: '', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
-	output: { pass: { output_type: '', value: '' }, fail: { output_type: '', value: '' } },
+	input: [{ name: 'A', comparator: 'static', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
+	output: { pass: { output_type: 'string', value: '' }, fail: { output_type: 'string', value: '' } },
 	conditions: [
 		{
 			name: 'A',
-			comparator: '',
+			comparator: 'static',
 			factor: '',
 			operator: '',
 			value: '',
 			startValue: '',
 			endValue: '',
-			output_type: '',
+			output_type: 'string',
 			output_value: '',
 		},
 	],
@@ -90,12 +90,13 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 	const updateRule = (key: string, value: any) => {
 		if (isView) return;
 		switch (key) {
-			case 'rule_name':
 			case 'output_type':
+				setOpenInput(true);
 				setRule((preV: any) => {
 					return { ...preV, [key]: value, ...default_condition_states };
 				});
 				break;
+			case 'rule_name':
 			case 'status':
 			case 'description':
 			case 'rule_execution_mode':
@@ -199,12 +200,14 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 	useEffect(() => {
 		if (Object.keys(selectedRule).length !== 0) {
 			setIsView(true);
+			setOpenInput(true);
 			setRule(selectedRule);
 		} else {
 			setIsView(false);
+			setOpenInput(true);
 			setRule(defaultRuleValues);
 		}
-	}, [selectedRule]);
+	}, [selectedRule, openDrawer]);
 
 	return (
 		<>
@@ -241,6 +244,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 									<Select
 										label="Output Type"
 										selected={rule.output_type}
+										value={rule.output_type}
 										options={output_types}
 										onChange={(e: string) => updateRule('output_type', e)}
 										isView={isView}
@@ -270,6 +274,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 										options={rule_execution_mode}
 										defaultOption={rule_execution_default}
 										selected={rule.rule_execution_mode}
+										value={rule.rule_execution_mode}
 										onChange={(e: string) => updateRule('rule_execution_mode', e)}
 										isView={isView}
 									/>

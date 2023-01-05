@@ -48,8 +48,10 @@
 		display: flex;
 		align-items: center;
 
-		span {
+		.ruleIndex {
 			margin-right: $spacing-6;
+			font-size: 20px;
+			color: $color-gray-300;
 		}
 
 		@media screen and (max-width: $breakpoint-medium) {

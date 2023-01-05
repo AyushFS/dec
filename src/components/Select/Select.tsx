@@ -21,6 +21,13 @@ const Select: FC<SelectProps> = memo(
 				setSelectedValue(valueToSelect);
 				if (onSelect) onSelect(valueToSelect);
 			}
+
+			if (selectedValue === '') {
+				const valueToSelect = defaultOption ? defaultOption.value : options[0].value;
+				setSelectedValue(valueToSelect);
+				if (onSelect) onSelect(valueToSelect);
+			}
+
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [options]);
 

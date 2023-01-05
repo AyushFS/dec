@@ -62,9 +62,11 @@ const Input: ReactFCC<InputProps> = (props) => {
 			)}
 			{isView ? (
 				type !== 'radio' ? (
-					<div className="biggerText">{restOfTheAttributes.value}</div>
+					<div className="biggerText">{restOfTheAttributes.value.length === 0 ? '-' : restOfTheAttributes.value}</div>
 				) : (
-					<div className="biggerText">{restOfTheAttributes.selected}</div>
+					<div className="biggerText">
+						{restOfTheAttributes.selected.length === 0 ? '-' : restOfTheAttributes.selected}
+					</div>
 				)
 			) : (
 				<div className={prefix || suffix ? 'input-group' : undefined}>

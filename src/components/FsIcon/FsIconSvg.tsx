@@ -16,6 +16,7 @@ import { ReactComponent as Tripledot } from '../../assets/images/icons/tripledot
 import { ReactComponent as Logout } from '../../assets/images/icons/logout.svg';
 import { ReactComponent as Rule } from '../../assets/images/icons/rule.svg';
 import { ReactComponent as Pen } from '../../assets/images/icons/pen.svg';
+import { ReactComponent as Handle } from '../../assets/images/icons/handle.svg';
 
 const svgIcons = {
 	home: <HomeIcon />,
@@ -35,6 +36,7 @@ const svgIcons = {
 	Logout: <Logout />,
 	Rule: <Rule />,
 	Pen: <Pen />,
+	Handle: <Handle />,
 };
 
 export default svgIcons;

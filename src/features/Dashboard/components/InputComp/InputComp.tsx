@@ -53,6 +53,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 							<Select
 								label="Comparator"
 								selected={condition.comparator}
+								value={condition.comparator}
 								defaultOption={{ value: 'static', label: 'Static Comparator' }}
 								options={[{ value: 'dynamic', label: 'Dynamic Comparator' }]}
 								onChange={(e: string) => handleOnChange(index, 'comparator', e)}
@@ -63,6 +64,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 							<Select
 								label="Factor"
 								selected={condition.factor}
+								value={condition.factor}
 								defaultOption={{ value: '', label: 'Choose factor' }}
 								options={factor_options}
 								onChange={(e: string) => handleOnChange(index, 'factor', e)}
@@ -75,6 +77,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 									<Select
 										label="Operator"
 										selected={condition.operator}
+										value={condition.operator}
 										defaultOption={{ value: '', label: 'Pick operator' }}
 										options={operator_options}
 										onChange={(e: string) => handleOnChange(index, 'operator', e)}
@@ -84,16 +87,29 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 							)}
 							{condition.operator && condition.operator !== 'between' && (
 								<div className={`${styles.valueSection}} ${styles.fullFlex}`}>
-									<Input
-										value={condition.value}
-										label={array_values.includes(condition.operator) ? 'Array' : 'Value'}
-										placeholder={array_values.includes(condition.operator) ? 'eg: 1, 2, 3, 4, 5, 6' : 'Insert value'}
-										onChange={(e: any) => handleOnChange(index, 'value', e.target.value)}
-										isView={isView}
-									/>
+									{condition.comparator === 'static' ? (
+										<Input
+											value={condition.value}
+											label={array_values.includes(condition.operator) ? 'Array' : 'Value'}
+											placeholder={array_values.includes(condition.operator) ? 'eg: 1, 2, 3, 4, 5, 6' : 'Insert value'}
+											onChange={(e: any) => handleOnChange(index, 'value', e.target.value)}
+											isView={isView}
+										/>
+									) : (
+										<Select
+											label={array_values.includes(condition.operator) ? 'Array' : 'Value'}
+											value={condition.value}
+											selected={condition.value}
+											defaultOption={{ value: '', label: 'Choose Value' }}
+											options={factor_options}
+											onChange={(e: string) => handleOnChange(index, 'value', e)}
+											isView={isView}
+										/>
+									)}
 								</div>
 							)}
-							{condition.operator && condition.operator === 'between' && (
+
+							{condition.operator && condition.operator === 'between' && condition.comparator === 'static' && (
 								<>
 									<div className={styles.valueSection}>
 										<Input
@@ -111,6 +127,33 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											placeholder="Insert value"
 											isView={isView}
 											onChange={(e: any) => handleOnChange(index, 'endValue', e.target.value)}
+										/>
+									</div>
+								</>
+							)}
+
+							{condition.operator && condition.operator === 'between' && condition.comparator === 'dynamic' && (
+								<>
+									<div className={styles.valueSection}>
+										<Select
+											label="Start Value"
+											value={condition.startValue}
+											selected={condition.startValue}
+											defaultOption={{ value: '', label: 'Choose Value' }}
+											options={factor_options}
+											onChange={(e: string) => handleOnChange(index, 'startValue', e)}
+											isView={isView}
+										/>
+									</div>
+									<div className={styles.valueSection}>
+										<Select
+											label="End Value"
+											value={condition.endValue}
+											selected={condition.endValue}
+											defaultOption={{ value: '', label: 'Choose Value' }}
+											options={factor_options}
+											onChange={(e: string) => handleOnChange(index, 'endValue', e)}
+											isView={isView}
 										/>
 									</div>
 								</>

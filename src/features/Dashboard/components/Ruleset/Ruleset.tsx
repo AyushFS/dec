@@ -26,6 +26,14 @@ const Ruleset = ({ ruleset }: any) => {
 		}
 	}, [ruleset]);
 
+	useEffect(() => {
+		if (openDropdown) {
+			setTimeout(() => {
+				setOpenDropdown(false);
+			}, 5000);
+		}
+	}, [openDropdown]);
+
 	const updateStatus = () => {
 		if (!isActive) updateRuleset('status', 'active', ruleset.id);
 		else updateRuleset('status', 'inactive', ruleset.id);
@@ -79,7 +87,7 @@ const Ruleset = ({ ruleset }: any) => {
 			<div className={styles.right_section}>
 				<div className={styles.action}>
 					<Switch on={isActive} onSwitch={() => handleToggle('switch')} />
-					<RulesetDropdown on={openDropdown} rulesetId={ruleset.id} onClick={() => handleToggle('dropdown')} />
+					<RulesetDropdown on={openDropdown} ruleset={ruleset} onClick={() => handleToggle('dropdown')} />
 				</div>
 				<Button flat hovered link onClick={handleViewRuleset}>
 					View Ruleset {svgIcons.ArrowRBlue}

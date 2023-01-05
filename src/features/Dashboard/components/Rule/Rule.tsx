@@ -6,12 +6,24 @@ import styles from './Rule.module.scss';
 import useGlobalState from '../../../GlobalState/useGlobalState';
 import AddRule from '../AddRule/AddRule';
 import UseDashboard from '../../UseDashboard';
+import TwoBtnModal from '../TwoBtnModal/TwoBtnModal';
 
-const Rule = ({ rule, deleteRule, rulesetId, updateRule }: any) => {
+const Rule = ({ rule, deleteRule, rulesetId, updateRule, dragHandle }: any) => {
 	const [isSwitchOn, setIsSwitchOn] = useState(false);
 	const [isDelete, setIsDelete] = useState(false);
 	const { isDrawerOpen, toggleDrawer, setDrawerOpen } = useGlobalState();
 	const { setSelectedRule } = UseDashboard();
+
+	const [openDelModal, setOpenDelModal] = useState(false);
+
+	const handleModalToggle = () => {
+		setOpenDelModal((preV) => !preV);
+	};
+
+	const handleDelete = () => {
+		deleteRule(rulesetId, rule.rule_id);
+		handleModalToggle();
+	};
 
 	useEffect(() => {
 		switch (rule.status) {
@@ -48,6 +60,10 @@ const Rule = ({ rule, deleteRule, rulesetId, updateRule }: any) => {
 								setDrawerOpen((prev) => ({ ...prev, rule: true }));
 							}}
 						>
+							<div className={styles.handle} {...dragHandle.dragHandleProps}>
+								{svgIcons.Handle}
+							</div>
+
 							<div className={styles.cardText}>
 								<p>{rule.rule_name}</p>
 								<span>{rule.rule_id}</span>
@@ -55,10 +71,10 @@ const Rule = ({ rule, deleteRule, rulesetId, updateRule }: any) => {
 							<Switch on={isSwitchOn} onSwitch={handleToggle} />
 							{isDelete && (
 								<span
-									className={styles.deleteIcon}
+									className={`${openDelModal ? '' : styles.deleteIcon} ${isDrawerOpen('rule') ? styles.remDelete : ''}`}
 									onClick={(e) => {
 										e.stopPropagation();
-										deleteRule(rulesetId, rule.rule_id);
+										handleModalToggle();
 									}}
 								>
 									{svgIcons.Delete}
@@ -73,6 +89,15 @@ const Rule = ({ rule, deleteRule, rulesetId, updateRule }: any) => {
 				openDrawer={isDrawerOpen('rule')}
 				handleToggleDrawer={() => toggleDrawer('rule')}
 				rulesetId={rulesetId}
+			/>
+
+			<TwoBtnModal
+				openModal={openDelModal}
+				firstBtnText="Cancel"
+				secondBtnText="Delete Ruleset"
+				handleModalToggle={handleModalToggle}
+				handleFirstBtn={handleModalToggle}
+				handleSecondBtn={handleDelete}
 			/>
 		</div>
 	);

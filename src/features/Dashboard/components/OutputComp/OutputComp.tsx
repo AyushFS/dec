@@ -40,6 +40,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 					<div className={styles.col}>
 						<Select
 							selected={data.output_type}
+							value={data.output_type}
 							label="Output Type"
 							options={output_options}
 							onChange={(e: string) => {
@@ -65,6 +66,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 					{data.output_type === 'boolean' && (
 						<Select
 							selected={isMulti ? data.output_value : data.value}
+							value={isMulti ? data.output_value : data.value}
 							label="Value"
 							options={bool_options}
 							isView={isView}
@@ -74,6 +76,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 					{data.output_type === 'custom' && (
 						<Select
 							selected={isMulti ? data.output_value : data.value}
+							value={isMulti ? data.output_value : data.value}
 							label="Value"
 							options={custom_options}
 							isView={isView}

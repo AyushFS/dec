@@ -2,21 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button, { ButtonColors } from '../../../../components/Button';
 import styles from './RulesetHeader.module.scss';
-import Modal from '../../../../components/Modal';
-import Input from '../../../../components/Input';
-import Textarea from '../../../../components/Textarea/Textarea';
-import Select from '../../../../components/Select';
 import UseDashboard from '../../UseDashboard';
-
-const status_types = [
-	{ value: 'active', label: 'Active' },
-	{ value: 'inactive', label: 'Inactive' },
-];
-
-const group_types = [
-	{ value: 'SG', label: 'Singapore' },
-	{ value: 'IN', label: 'India' },
-];
+import AddRuleset from '../AddRuleset/AddRuleset';
 
 // some of these values will be obtained from login dsta & some related API calls
 const defaultRulesetValues = {
@@ -70,47 +57,14 @@ const RulesetHeader = () => {
 				</Button>
 			</div>
 			{/* Modal Section */}
-			<Modal openState={openModal} isClosable onCloseModal={handleToggle} title="Add Ruleset">
-				<div className={styles.inputContainer}>
-					<div className={styles.row}>
-						<div className={styles.col}>
-							<Input
-								label="Ruleset Name"
-								value={currentRuleset.ruleset_name}
-								onChange={(e: any) => handleUpdateRuleset('ruleset_name', e.target.value)}
-							/>
-						</div>
-						<div className={styles.col}>
-							<Select
-								selected={currentRuleset.country}
-								options={group_types}
-								onChange={(e: string) => handleUpdateRuleset('country', e)}
-								label="Group"
-							/>
-						</div>
-					</div>
-				</div>
-				<Input
-					label="Rule Status"
-					radiobtns={status_types}
-					selected={currentRuleset.status}
-					type="radio"
-					onChange={(e: any) => handleUpdateRuleset('status', e.target.value)}
-				/>
-				<Textarea
-					label="Ruleset Description"
-					value={currentRuleset.description}
-					onChange={(e: any) => handleUpdateRuleset('description', e.target.value)}
-				/>
-				<div className={styles.modal_btns}>
-					<Button color={ButtonColors.secondary} onClick={handleToggle}>
-						Cancel
-					</Button>
-					<Button color={ButtonColors.primary} onClick={handleAddRuleset}>
-						Add Ruleset
-					</Button>
-				</div>
-			</Modal>
+			<AddRuleset
+				openModal={openModal}
+				handleToggle={handleToggle}
+				handleUpdateRuleset={handleUpdateRuleset}
+				currentRuleset={currentRuleset}
+				handleAddRuleset={handleAddRuleset}
+				large
+			/>
 		</>
 	);
 };

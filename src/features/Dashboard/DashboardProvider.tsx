@@ -30,8 +30,146 @@ const defaultDashboardContext = {
 			updated_on: '05-12-2022',
 			rules: [
 				{
-					rule_id: 'RS-20221229-123456789',
+					rule_id: 'RS-20221229-1234567899',
 					rule_name: 'SG Bolt 01',
+					output_type: 'single',
+					status: 'active',
+					description: 'For processing data',
+					rule_execution_mode: 'linear',
+					logical_expression: '',
+					input: [
+						{
+							name: 'A',
+							comparator: 'static',
+							factor: 'age',
+							operator: 'gt',
+							value: '24',
+							startValue: '',
+							endValue: '',
+						},
+						{
+							name: 'B',
+							comparator: 'dynamic',
+							factor: 'balance',
+							operator: 'gt',
+							value: '30000',
+							startValue: '',
+							endValue: '',
+						},
+					],
+					output: {
+						pass: { output_type: 'string', value: 'Yup' },
+						fail: { output_type: 'string', value: 'Try Again!' },
+					},
+					conditions: [
+						{
+							name: 'A',
+							comparator: 'static',
+							factor: '',
+							operator: '',
+							value: '',
+							startValue: '',
+							endValue: '',
+							output_type: 'boolean',
+							output_value: '',
+						},
+					],
+				},
+				{
+					rule_id: 'RS-20221229-123456789',
+					rule_name: 'SG Bolt 02',
+					output_type: 'single',
+					status: 'active',
+					description: 'For processing data',
+					rule_execution_mode: 'linear',
+					logical_expression: '',
+					input: [
+						{
+							name: 'A',
+							comparator: 'static',
+							factor: 'age',
+							operator: 'gt',
+							value: '24',
+							startValue: '',
+							endValue: '',
+						},
+						{
+							name: 'B',
+							comparator: 'dynamic',
+							factor: 'balance',
+							operator: 'gt',
+							value: '30000',
+							startValue: '',
+							endValue: '',
+						},
+					],
+					output: {
+						pass: { output_type: 'string', value: 'Yup' },
+						fail: { output_type: 'string', value: 'Try Again!' },
+					},
+					conditions: [
+						{
+							name: 'A',
+							comparator: 'static',
+							factor: '',
+							operator: '',
+							value: '',
+							startValue: '',
+							endValue: '',
+							output_type: 'boolean',
+							output_value: '',
+						},
+					],
+				},
+				{
+					rule_id: 'RS-20221229-1234567898',
+					rule_name: 'SG Bolt 03',
+					output_type: 'single',
+					status: 'inactive',
+					description: 'For processing data',
+					rule_execution_mode: 'linear',
+					logical_expression: '',
+					input: [
+						{
+							name: 'A',
+							comparator: 'static',
+							factor: 'age',
+							operator: 'gt',
+							value: '24',
+							startValue: '',
+							endValue: '',
+						},
+						{
+							name: 'B',
+							comparator: 'dynamic',
+							factor: 'balance',
+							operator: 'gt',
+							value: '30000',
+							startValue: '',
+							endValue: '',
+						},
+					],
+					output: {
+						pass: { output_type: 'string', value: 'Yup' },
+						fail: { output_type: 'string', value: 'Try Again!' },
+					},
+					conditions: [
+						{
+							name: 'A',
+							comparator: 'static',
+							factor: '',
+							operator: '',
+							value: '',
+							startValue: '',
+							endValue: '',
+							output_type: 'boolean',
+							output_value: '',
+						},
+					],
+				},
+				{
+					rule_id: 'RS-20221229-123456783',
+					rule_name: 'SG Bolt 04',
 					output_type: 'single',
 					status: 'active',
 					description: 'For processing data',
@@ -113,13 +251,15 @@ export const DashboardProvider: ReactFCC<DashboardProviderProps> = ({ children }
 	);
 
 	const updateRuleset = useCallback(
-		(key: string, value: string, ruleset_id: string) => {
+		(key: string, value: any, ruleset_id: string, all: boolean = false) => {
 			let rulesetIndex = 0;
 			for (let index = 0; index < rulesets.length; index++) {
 				if (rulesets[index].id === ruleset_id) rulesetIndex = index;
 			}
 			const updatedRulesets = [...rulesets];
-			updatedRulesets[rulesetIndex] = { ...rulesets[rulesetIndex], [key]: value };
+			if (all) {
+				updatedRulesets[rulesetIndex] = { ...value };
+			} else updatedRulesets[rulesetIndex] = { ...rulesets[rulesetIndex], [key]: value };
 			setRulesets(updatedRulesets);
 		},
 		[rulesets]

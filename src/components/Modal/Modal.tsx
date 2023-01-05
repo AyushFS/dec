@@ -6,7 +6,7 @@ import { ModalProps } from './interface';
 import styles from './Modal.module.scss';
 
 const Modal: ReactFCC<ModalProps> = memo(
-	({ title, children, isClosable, cssClass, footer, onCloseModal, openState }) => {
+	({ title, children, isClosable, cssClass, footer, onCloseModal, openState, extraWidth }) => {
 		const [isOpen, setIsOpen] = useState<boolean>(openState);
 
 		const closeModal = useCallback(() => {
@@ -24,7 +24,7 @@ const Modal: ReactFCC<ModalProps> = memo(
 
 		return (
 			<div className={[styles.modalContainer, cssClass].filter((s) => s).join(' ')} data-testid="modal-component">
-				<div className={`${styles.modal} modal`}>
+				<div className={`${styles.modal} modal ${extraWidth ? styles.extraWidth : ''}`}>
 					<div className={styles.modalContent}>
 						{showHeader && (
 							<div className={`${styles.modalHeader} modal-header`}>

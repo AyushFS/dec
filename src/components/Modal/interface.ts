@@ -7,4 +7,5 @@ export interface ModalProps {
 	cssClass?: string;
 	footer?: React.ReactNode;
 	onCloseModal?: () => void;
+	extraWidth?: boolean;
 }
