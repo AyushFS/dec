@@ -57,7 +57,7 @@ const Input: ReactFCC<InputProps> = (props) => {
 					className={`form-label ${restOfTheAttributes.disabled ? 'disableLabel' : ''} ${isView ? 'biggerlabel' : ''}`}
 				>
 					{label}
-					{required && '*'}
+					{/* {required && '*'} */}
 				</label>
 			)}
 			{isView ? (

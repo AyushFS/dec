@@ -51,6 +51,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 								update('output_type', e, data, title);
 							}}
 							isView={isView}
+							required
 						/>
 					</div>
 				</div>
@@ -65,6 +66,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 								isMulti ? update('output_value', e.target.value) : update('value', e.target.value, data, title)
 							}
 							isView={isView}
+							required
 						/>
 					)}
 					{data.output_type === 'boolean' && (
@@ -75,6 +77,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 							options={bool_options}
 							isView={isView}
 							onChange={(e: string) => (isMulti ? update('output_value', e) : update('value', e, data, title))}
+							required
 						/>
 					)}
 					{data.output_type === 'custom' && (
@@ -85,6 +88,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 							options={custom_options}
 							isView={isView}
 							onChange={(e: string) => (isMulti ? update('output_value', e) : update('value', e, data, title))}
+							required
 						/>
 					)}
 				</div>

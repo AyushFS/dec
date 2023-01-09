@@ -94,7 +94,7 @@ const Rule = ({ rule, deleteRule, rulesetId, updateRule, dragHandle }: any) => {
 			<TwoBtnModal
 				openModal={openDelModal}
 				firstBtnText="Cancel"
-				secondBtnText="Delete Ruleset"
+				secondBtnText="Delete Rule"
 				handleModalToggle={handleModalToggle}
 				handleFirstBtn={handleModalToggle}
 				handleSecondBtn={handleDelete}

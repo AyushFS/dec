@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import LEP from '@jeanbenitez/logical-expression-parser';
 import Drawer from '../../../../components/Drawer';
-import Button, { ButtonColors } from '../../../../components/Button';
+import Button, { ButtonColors, ButtonTypes } from '../../../../components/Button';
 import FsIcon from '../../../../components/FsIcon';
 import styles from './AddRule.module.scss';
 import Input from '../../../../components/Input';
@@ -21,7 +22,7 @@ const status_types = [
 	{ value: 'inactive', label: 'Inactive' },
 ];
 
-const output_types = [
+const default_output_types = [
 	{ value: 'single', label: 'Single Output' },
 	{ value: 'multiple', label: 'Multiple Output' },
 ];
@@ -86,6 +87,54 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 	const { addNewRule, selectedRule, updateRule: updateMainRule } = UseDashboard();
 
 	const [rule, setRule] = useState(defaultRuleValues);
+	const [output_types, setOutputTypesValues] = useState(default_output_types);
+	const [isValidExpression, setIsValidExpression] = useState<boolean>(true);
+
+	const checkisValidExpression = (expr: string) => {
+		// @ts-ignore
+		const input_names = [...Array(rule.input.length).keys()].map((i) => alphabet[i]);
+		const logical_operators = ['AND', 'OR'];
+		const simplified_exp: string[] | string = expr.replaceAll('OR', '');
+
+		if (LEP.parse(simplified_exp, (t: any) => [...input_names, ...logical_operators].includes(t))) {
+			const expression = expr
+				.replaceAll('(', '')
+				.replaceAll(')', '')
+				.replaceAll('AND', '')
+				.replaceAll('OR', '')
+				.replaceAll(' ', '')
+				.split('');
+
+			if (JSON.stringify(expression) === JSON.stringify(input_names)) setIsValidExpression(true);
+			else setIsValidExpression(false);
+		} else setIsValidExpression(false);
+	};
+
+	const handleRuleExecutionChange = (execution_mode: string) => {
+		if (execution_mode === 'non_linear') {
+			if (rule.logical_expression) checkisValidExpression(rule.logical_expression);
+			setOutputTypesValues([{ value: 'single', label: 'Single Output' }]);
+		} else if (rule.rule_execution_mode !== 'linear' && execution_mode === 'linear') {
+			setIsValidExpression(true);
+			setOutputTypesValues(default_output_types);
+		}
+
+		setRule((preV: any) => {
+			return { ...preV, output_type: 'single', rule_execution_mode: execution_mode };
+		});
+	};
+
+	const handleExpressionChange = (expr: string) => {
+		setRule((preV: any) => {
+			return { ...preV, logical_expression: expr };
+		});
+		checkisValidExpression(expr);
+	};
+
+	useEffect(() => {
+		if (rule.logical_expression && rule.rule_execution_mode === 'non_linear')
+			checkisValidExpression(rule.logical_expression);
+	}, [rule.input]);
 
 	const updateRule = (key: string, value: any) => {
 		if (isView) return;
@@ -96,11 +145,15 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 					return { ...preV, [key]: value, ...default_condition_states };
 				});
 				break;
+			case 'rule_execution_mode':
+				handleRuleExecutionChange(value);
+				break;
+			case 'logical_expression':
+				handleExpressionChange(value);
+				break;
 			case 'rule_name':
 			case 'status':
 			case 'description':
-			case 'rule_execution_mode':
-			case 'logical_expression':
 			case 'input':
 			case 'output':
 			case 'conditions':
@@ -225,7 +278,15 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 					</div>
 				}
 				content={
-					<div className={styles.outerContainer}>
+					<form
+						className={styles.outerContainer}
+						onSubmit={(e: any) => {
+							e.preventDefault();
+							if (isView) setIsView(false);
+							else if (selectedRule.rule_id) handleUpdateRule();
+							else handleAddRule();
+						}}
+					>
 						<div className={styles.container}>
 							<div className={styles.row}>
 								<div className={styles.col}>
@@ -248,6 +309,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 										options={output_types}
 										onChange={(e: string) => updateRule('output_type', e)}
 										isView={isView}
+										required
 									/>
 								</div>
 								<div className={styles.col}>
@@ -277,6 +339,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 										value={rule.rule_execution_mode}
 										onChange={(e: string) => updateRule('rule_execution_mode', e)}
 										isView={isView}
+										required
 									/>
 								</div>
 								{rule.rule_execution_mode === 'non_linear' && (
@@ -285,8 +348,10 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 											label="Logical Expression"
 											placeholder="eg: (A AND (B OR C))"
 											value={rule.logical_expression}
-											onChange={(e: any) => updateRule('logical_expression', e.target.value)}
+											onChange={(e: any) => updateRule('logical_expression', e.target.value.toUpperCase())}
 											isView={isView}
+											required
+											errorMessage={!isValidExpression ? 'Invalid Expression or Missing Inputs!' : ''}
 										/>
 									</div>
 								)}
@@ -383,27 +448,16 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 								Cancel
 							</Button>
 							{isView ? (
-								<Button
-									color={ButtonColors.secondary}
-									onClick={() => {
-										setIsView(false);
-									}}
-								>
+								<Button color={ButtonColors.secondary} type={ButtonTypes.submit}>
 									Edit Details
 								</Button>
 							) : (
-								<Button
-									color={ButtonColors.primary}
-									onClick={() => {
-										if (selectedRule.rule_id) handleUpdateRule();
-										else handleAddRule();
-									}}
-								>
+								<Button color={ButtonColors.primary} type={ButtonTypes.submit} disabled={!isValidExpression}>
 									{selectedRule.rule_id ? 'Update Rule' : 'Add Rule'}
 								</Button>
 							)}
 						</div>
-					</div>
+					</form>
 				}
 			/>
 			<TwoBtnModal

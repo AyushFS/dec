@@ -27,6 +27,7 @@
 	},
 	"dependencies": {
 		"@datadog/browser-rum": "^4.17.2",
+		"@jeanbenitez/logical-expression-parser": "^1.0.0",
 		"@nivo/pie": "^0.80.0",
 		"axios": "^0.27.2",
 		"coveralls": "^3.1.1",

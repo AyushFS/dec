@@ -18,6 +18,7 @@ interface InputCompProps {
 const factor_options = [
 	{ value: 'age', label: 'Age' },
 	{ value: 'balance', label: 'Balance' },
+	{ value: 'income', label: 'Income' },
 ];
 
 const operator_options = [
@@ -58,6 +59,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 								options={[{ value: 'dynamic', label: 'Dynamic Comparator' }]}
 								onChange={(e: string) => handleOnChange(index, 'comparator', e)}
 								isView={isView}
+								required
 							/>
 						</div>
 						<div className={styles.col}>
@@ -69,6 +71,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 								options={factor_options}
 								onChange={(e: string) => handleOnChange(index, 'factor', e)}
 								isView={isView}
+								required
 							/>
 						</div>
 						<div className={styles.bottomContainer}>
@@ -82,6 +85,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 										options={operator_options}
 										onChange={(e: string) => handleOnChange(index, 'operator', e)}
 										isView={isView}
+										required
 									/>
 								</div>
 							)}
@@ -94,6 +98,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											placeholder={array_values.includes(condition.operator) ? 'eg: 1, 2, 3, 4, 5, 6' : 'Insert value'}
 											onChange={(e: any) => handleOnChange(index, 'value', e.target.value)}
 											isView={isView}
+											required
 										/>
 									) : (
 										<Select
@@ -104,6 +109,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											options={factor_options}
 											onChange={(e: string) => handleOnChange(index, 'value', e)}
 											isView={isView}
+											required
 										/>
 									)}
 								</div>
@@ -118,6 +124,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											placeholder="Insert value"
 											isView={isView}
 											onChange={(e: any) => handleOnChange(index, 'startValue', e.target.value)}
+											required
 										/>
 									</div>
 									<div className={styles.valueSection}>
@@ -127,6 +134,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											placeholder="Insert value"
 											isView={isView}
 											onChange={(e: any) => handleOnChange(index, 'endValue', e.target.value)}
+											required
 										/>
 									</div>
 								</>
@@ -143,6 +151,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											options={factor_options}
 											onChange={(e: string) => handleOnChange(index, 'startValue', e)}
 											isView={isView}
+											required
 										/>
 									</div>
 									<div className={styles.valueSection}>
@@ -154,6 +163,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											options={factor_options}
 											onChange={(e: string) => handleOnChange(index, 'endValue', e)}
 											isView={isView}
+											required
 										/>
 									</div>
 								</>
