@@ -35,7 +35,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 	return (
 		<>
 			{title && (
-				<div className={styles.head}>
+				<div className={`${styles.head} ${isMulti ? styles.morePad : ''}`}>
 					{isMulti ? 'Output:' : ''} {title}
 				</div>
 			)}

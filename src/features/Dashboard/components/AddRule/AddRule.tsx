@@ -239,15 +239,23 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 	};
 
 	const handleAddRule = () => {
-		const temp = { ...rule, rule_id: `RS-20221227-1234567${Math.floor(Math.random() * (100 - 1 + 1) + 1)}` };
-		handleToggleDrawer();
-		addNewRule(temp, rulesetId);
-		setRule(defaultRuleValues);
+		if (rule.output_type !== 'multiple' && (!rule.output.fail.value || !rule.output.pass.value)) {
+			setOpenInput(false);
+		} else {
+			const temp = { ...rule, rule_id: `RS-20221227-1234567${Math.floor(Math.random() * (100 - 1 + 1) + 1)}` };
+			handleToggleDrawer();
+			addNewRule(temp, rulesetId);
+			setRule(defaultRuleValues);
+		}
 	};
 
 	const handleUpdateRule = () => {
-		updateMainRule('', rule, rulesetId, selectedRule.rule_id, true);
-		handleToggleDrawer();
+		if (rule.output_type !== 'multiple' && (!rule.output.fail.value || !rule.output.pass.value)) {
+			setOpenInput(false);
+		} else {
+			updateMainRule('', rule, rulesetId, selectedRule.rule_id, true);
+			handleToggleDrawer();
+		}
 	};
 
 	useEffect(() => {
