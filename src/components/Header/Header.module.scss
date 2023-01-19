@@ -6,11 +6,12 @@
 
 	&Bar {
 		composes: navbar;
+		min-height: auto;
 	}
 
 	&NavTrigger {
 		button {
-			padding-left: 0;
+			padding: 0 $spacing-4 0 0;
 		}
 	}
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import UseDashboard from '../../UseDashboard';
@@ -11,19 +11,33 @@ import AddRule from '../AddRule/AddRule';
 import useGlobalState from '../../../GlobalState/useGlobalState';
 import { Rule as RuleInterface } from '../../../../common/interface/ruleset';
 import DragableRule from '../DragableRule/DragableRule';
+import Input from '../../../../components/Input';
 
 function RulesetDetails() {
+	const { toggleDrawer, isDrawerOpen, setDrawerOpen } = useGlobalState();
 	const { selectedRuleset, deleteRule, updateRule, updateRuleset, setSelectedRule, setSelectedRuleset } =
 		UseDashboard();
 	const history = useNavigate();
-	// const [openDrawer, setOpenDrawer] = useState(false);
 
-	const { toggleDrawer, isDrawerOpen, setDrawerOpen } = useGlobalState();
+	const [isEdit, setIsEdit] = useState(false);
+	const [rulesetName, setRulesetName] = useState('');
 
 	// ruleset not selected then go back to '/'
 	useEffect(() => {
 		if (Object.keys(selectedRuleset).length === 0) history('/');
+		else setRulesetName(selectedRuleset.ruleset_name);
 	}, [history, selectedRuleset]);
+
+	const handleNameUpdate = () => {
+		updateRuleset('ruleset_name', rulesetName, selectedRuleset.id);
+		setSelectedRuleset({ ...selectedRuleset, ruleset_name: rulesetName });
+		setIsEdit(false);
+	};
+
+	const handleCancel = () => {
+		setRulesetName(selectedRuleset.ruleset_name);
+		setIsEdit(false);
+	};
 
 	const handleDrop = (params: DropResult) => {
 		const tempRules = [...selectedRuleset.rules];
@@ -46,10 +60,29 @@ function RulesetDetails() {
 				</Button>
 			</div>
 			<div className={styles.headtext}>
-				<h5>
-					{selectedRuleset.ruleset_name} {svgIcons.Pen}
-				</h5>
-				<span>Drag cards to reorder the rules</span>
+				{!isEdit ? (
+					<h5>
+						{selectedRuleset.ruleset_name ? selectedRuleset.ruleset_name : '-'}
+						<Button flat onClick={() => setIsEdit(true)}>
+							{svgIcons.Pen}
+						</Button>
+					</h5>
+				) : (
+					<div className={styles.headInput}>
+						<Input
+							value={rulesetName}
+							placeHolder="Insert ruleset name"
+							onChange={(e: ChangeEvent<HTMLInputElement>) => setRulesetName(e.target.value)}
+						/>
+						<Button flat onClick={handleCancel} color={ButtonColors.secondary}>
+							Cancel
+						</Button>
+						<Button flat onClick={handleNameUpdate} color={ButtonColors.primary}>
+							Save
+						</Button>
+					</div>
+				)}
+				<span>{!isEdit && 'Drag cards to reorder the rules'}</span>
 			</div>
 			{/* Filter section */}
 			<Filter

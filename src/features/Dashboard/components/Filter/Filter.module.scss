@@ -5,7 +5,7 @@
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	margin: $spacing-6 0;
+	margin: $spacing-6 0 $spacing-4;
 
 	.selectSection {
 		width: 180px;
@@ -45,14 +45,17 @@
 	display: flex;
 	font-size: $font-size-small;
 	justify-content: flex-end;
+	height: auto;
+	margin-bottom: $spacing-4;
 	div {
 		width: 150px;
+		padding-bottom: 0;
 	}
 	select {
 		background: none;
 		border: none;
 		font-size: $font-size-small;
-		margin-left: $spacing-4;
+		box-shadow: none;
 	}
 }
 
