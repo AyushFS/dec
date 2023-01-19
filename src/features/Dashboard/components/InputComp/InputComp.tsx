@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import Card from '../../../../components/Card';
 import styles from './InputComp.module.scss';
 import svgIcons from '../../../../components/FsIcon/FsIconSvg';
@@ -96,7 +96,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											value={condition.value}
 											label={array_values.includes(condition.operator) ? 'Array' : 'Value'}
 											placeholder={array_values.includes(condition.operator) ? 'eg: 1, 2, 3, 4, 5, 6' : 'Insert value'}
-											onChange={(e: any) => handleOnChange(index, 'value', e.target.value)}
+											onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(index, 'value', e.target.value)}
 											isView={isView}
 											required
 										/>
@@ -123,7 +123,9 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											label="Start Value"
 											placeholder="Insert value"
 											isView={isView}
-											onChange={(e: any) => handleOnChange(index, 'startValue', e.target.value)}
+											onChange={(e: ChangeEvent<HTMLInputElement>) =>
+												handleOnChange(index, 'startValue', e.target.value)
+											}
 											required
 										/>
 									</div>
@@ -133,7 +135,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											label="End Value"
 											placeholder="Insert value"
 											isView={isView}
-											onChange={(e: any) => handleOnChange(index, 'endValue', e.target.value)}
+											onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(index, 'endValue', e.target.value)}
 											required
 										/>
 									</div>

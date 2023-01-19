@@ -1,19 +1,20 @@
-import React, { createContext, useMemo, useState, useCallback } from 'react';
+import React, { createContext, useMemo, useState, useCallback, Dispatch, SetStateAction } from 'react';
 import { ReactFCC } from '../../common/interface/react';
+import { Ruleset, Rule } from '../../common/interface/ruleset';
 
 interface DashboardContextType {
-	rulesets: any;
-	setRulesets: any;
-	selectedRuleset: any;
-	setSelectedRuleset: any;
-	addNewRuleSet: any;
-	addNewRule: any;
-	deleteRuleset: any;
-	deleteRule: any;
-	updateRuleset: any;
-	updateRule: any;
+	rulesets: Array<Ruleset>;
+	setRulesets: Dispatch<SetStateAction<Ruleset[]>>;
+	selectedRuleset: Ruleset;
+	setSelectedRuleset: Dispatch<SetStateAction<Ruleset>>;
+	addNewRuleSet: (ruleset: Ruleset) => void;
+	addNewRule: (rule: Rule, ruleset_id: string) => void;
+	deleteRuleset: (ruleset_id: string) => void;
+	deleteRule: (ruleset_id: string, rule_id: string) => void;
+	updateRuleset: (key: string, value: string | Ruleset | Rule[], ruleset_id: string, all?: boolean) => void;
+	updateRule: (key: string, value: string | Rule, ruleset_id: string, rule_id: string, all?: boolean) => void;
 	selectedRule: any;
-	setSelectedRule: any;
+	setSelectedRule: Dispatch<SetStateAction<any>>;
 }
 
 const defaultDashboardContext = {
@@ -52,7 +53,7 @@ const defaultDashboardContext = {
 							comparator: 'dynamic',
 							factor: 'balance',
 							operator: 'gt',
-							value: '30000',
+							value: 'income',
 							startValue: '',
 							endValue: '',
 						},
@@ -98,7 +99,7 @@ const defaultDashboardContext = {
 							comparator: 'dynamic',
 							factor: 'balance',
 							operator: 'gt',
-							value: '30000',
+							value: 'age',
 							startValue: '',
 							endValue: '',
 						},
@@ -144,7 +145,7 @@ const defaultDashboardContext = {
 							comparator: 'dynamic',
 							factor: 'balance',
 							operator: 'gt',
-							value: '30000',
+							value: 'income',
 							startValue: '',
 							endValue: '',
 						},
@@ -190,7 +191,7 @@ const defaultDashboardContext = {
 							comparator: 'dynamic',
 							factor: 'balance',
 							operator: 'gt',
-							value: '30000',
+							value: 'age',
 							startValue: '',
 							endValue: '',
 						},
@@ -217,7 +218,7 @@ const defaultDashboardContext = {
 		},
 	],
 	setRulesets: () => {},
-	selectedRuleset: {},
+	selectedRuleset: {} as Ruleset,
 	setSelectedRuleset: () => {},
 	addNewRuleSet: () => {},
 	addNewRule: () => {},
@@ -225,7 +226,7 @@ const defaultDashboardContext = {
 	deleteRule: () => {},
 	updateRuleset: () => {},
 	updateRule: () => {},
-	selectedRule: {},
+	selectedRule: {} as Rule,
 	setSelectedRule: () => {},
 };
 
@@ -234,17 +235,17 @@ const DashboardContext = createContext<DashboardContextType>(defaultDashboardCon
 interface DashboardProviderProps {}
 
 export const DashboardProvider: ReactFCC<DashboardProviderProps> = ({ children }) => {
-	const [rulesets, setRulesets] = useState<any>(defaultDashboardContext.rulesets);
-	const [selectedRuleset, setSelectedRuleset] = useState<any>(defaultDashboardContext.selectedRuleset);
-	const [selectedRule, setSelectedRule] = useState<any>(defaultDashboardContext.selectedRuleset);
+	const [rulesets, setRulesets] = useState<Ruleset[]>(defaultDashboardContext.rulesets);
+	const [selectedRuleset, setSelectedRuleset] = useState<Ruleset>(defaultDashboardContext.selectedRuleset);
+	const [selectedRule, setSelectedRule] = useState<Rule>(defaultDashboardContext.selectedRule);
 
-	const addNewRuleSet = useCallback((ruleset: any) => {
+	const addNewRuleSet = useCallback((ruleset: Ruleset) => {
 		setRulesets((preV: any) => [...preV, ruleset]);
 	}, []);
 
 	const deleteRuleset = useCallback(
 		(ruleset_id: string) => {
-			const temp = rulesets.filter((ruleset: any) => ruleset.id !== ruleset_id);
+			const temp = rulesets.filter((ruleset: Ruleset) => ruleset.id !== ruleset_id);
 			setRulesets(temp);
 		},
 		[rulesets]
@@ -266,7 +267,7 @@ export const DashboardProvider: ReactFCC<DashboardProviderProps> = ({ children }
 	);
 
 	const addNewRule = useCallback(
-		(rule: any, ruleset_id: string) => {
+		(rule: Rule, ruleset_id: string) => {
 			let rulesetIndex = 0;
 			for (let index = 0; index < rulesets.length; index++) {
 				if (rulesets[index].id === ruleset_id) rulesetIndex = index;
@@ -288,7 +289,7 @@ export const DashboardProvider: ReactFCC<DashboardProviderProps> = ({ children }
 			}
 			const currentRuleSet = { ...rulesets[rulesetIndex] };
 
-			const temp = currentRuleSet.rules.filter((rule: any) => rule.rule_id !== rule_id);
+			const temp = currentRuleSet.rules.filter((rule: Rule) => rule.rule_id !== rule_id);
 			const updatedRulesets = [...rulesets];
 			updatedRulesets[rulesetIndex] = { ...currentRuleSet, rules: temp };
 			setRulesets(updatedRulesets);
@@ -298,7 +299,7 @@ export const DashboardProvider: ReactFCC<DashboardProviderProps> = ({ children }
 	);
 
 	const updateRule = useCallback(
-		(key: string, value: string, ruleset_id: string, rule_id: string, all: boolean = false) => {
+		(key: string, value: any, ruleset_id: string, rule_id: string, all: boolean = false) => {
 			let rulesetIndex = 0;
 			let ruleIndex = 0;
 			for (let index = 0; index < rulesets.length; index++) {
@@ -311,6 +312,7 @@ export const DashboardProvider: ReactFCC<DashboardProviderProps> = ({ children }
 			}
 
 			const temp = [...currentRuleSet.rules];
+			// @ts-ignore
 			if (!all) temp[ruleIndex][key] = value;
 			else temp[ruleIndex] = value;
 			const updatedRulesets = [...rulesets];

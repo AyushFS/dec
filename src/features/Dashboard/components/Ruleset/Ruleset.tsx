@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Ruleset as RulesetInterface } from '../../../../common/interface/ruleset';
+import { ReactFCC } from '../../../../common/interface/react';
 import Switch from '../../../../components/Switch/Switch';
 import RulesetDropdown from '../RulesetDropdown/RulesetDropdown';
 import Button from '../../../../components/Button';
@@ -7,7 +9,11 @@ import styles from './Ruleset.module.scss';
 import UseDashboard from '../../UseDashboard';
 import svgIcons from '../../../../components/FsIcon/FsIconSvg';
 
-const Ruleset = ({ ruleset }: any) => {
+interface RulesetCompProps {
+	ruleset: RulesetInterface;
+}
+
+const Ruleset: ReactFCC<RulesetCompProps> = ({ ruleset }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState(false);
 	const history = useNavigate();

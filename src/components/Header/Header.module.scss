@@ -6,16 +6,11 @@
 
 	&Bar {
 		composes: navbar;
-		min-height: auto;
 	}
 
 	&NavTrigger {
-		display: none;
-		@media screen and (max-width: 768px) {
-			display: block;
-			margin-left: -18px;
-			margin-top: -5px;
-			margin-bottom: -5px;
+		button {
+			padding-left: 0;
 		}
 	}
 

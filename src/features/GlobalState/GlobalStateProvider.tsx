@@ -55,7 +55,7 @@ export const GlobalStateProvider: ReactFCC<GlobalStateProviderProps> = ({ childr
 	const [snackbar, setSnackbar] = useState<SnackbarProps | null>(null);
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 	const [deviceType, setDeviceType] = useState<DEVICE_TYPE>(DEVICE_TYPE.DESKTOP);
-	const [drawerOpen, setDrawerOpen] = useState<DrawerState>({ main: false, rule: false });
+	const [drawerOpen, setDrawerOpen] = useState<DrawerState>({ main: true, rule: false });
 	const [currentCountry, setCurrentCountry] = useState<COUNTRY_CODE>(COUNTRY_CODE.SG);
 	const [pageData, setPageData] = useState<PageData>({ title: '' });
 
@@ -74,6 +74,8 @@ export const GlobalStateProvider: ReactFCC<GlobalStateProviderProps> = ({ childr
 			setDeviceType(DEVICE_TYPE.DESKTOP);
 		}
 		if (ismobile !== isMobile) setIsMobile(ismobile);
+
+		if (ismobile) setDrawerOpen((prev) => ({ ...prev, main: false }));
 	}, [isMobile, setIsMobile]);
 
 	const isCurrentCountry = useCallback(

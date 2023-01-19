@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import LEP from '@jeanbenitez/logical-expression-parser';
 import Drawer from '../../../../components/Drawer';
 import Button, { ButtonColors, ButtonTypes } from '../../../../components/Button';
@@ -96,7 +96,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		const logical_operators = ['AND', 'OR'];
 		const simplified_exp: string[] | string = expr.replaceAll('OR', '');
 
-		if (LEP.parse(simplified_exp, (t: any) => [...input_names, ...logical_operators].includes(t))) {
+		if (LEP.parse(simplified_exp, (t: string) => [...input_names, ...logical_operators].includes(t))) {
 			const expression = expr
 				.replaceAll('(', '')
 				.replaceAll(')', '')
@@ -119,13 +119,13 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 			setOutputTypesValues(default_output_types);
 		}
 
-		setRule((preV: any) => {
+		setRule((preV) => {
 			return { ...preV, output_type: 'single', rule_execution_mode: execution_mode };
 		});
 	};
 
 	const handleExpressionChange = (expr: string) => {
-		setRule((preV: any) => {
+		setRule((preV) => {
 			return { ...preV, logical_expression: expr };
 		});
 		checkisValidExpression(expr);
@@ -141,7 +141,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		switch (key) {
 			case 'output_type':
 				setOpenInput(true);
-				setRule((preV: any) => {
+				setRule((preV) => {
 					return { ...preV, [key]: value, ...default_condition_states };
 				});
 				break;
@@ -157,7 +157,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 			case 'input':
 			case 'output':
 			case 'conditions':
-				setRule((preV: any) => {
+				setRule((preV) => {
 					return { ...preV, [key]: value };
 				});
 				break;
@@ -168,7 +168,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 	};
 
 	const handleInputChange = (index: number, key: string, value: any) => {
-		let temp: any = [];
+		let temp = [];
 
 		if (rule.output_type === 'single') {
 			temp = [...rule.input];
@@ -272,135 +272,164 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 
 	return (
 		<>
-			<Drawer
-				isDrawerOpen={openDrawer}
-				hideDrawer={() => {}}
-				right
-				width={(window.innerWidth - 200) / 2}
-				header={
-					<div className={styles.AddRuleHeader}>
-						<h6>Add Rule</h6>
-						<Button link onClick={handleToggleDrawer} testId="close-button">
-							<FsIcon size={24}>cross</FsIcon>
-						</Button>
-					</div>
-				}
-				content={
-					<form
-						className={styles.outerContainer}
-						onSubmit={(e: any) => {
-							e.preventDefault();
-							if (isView) setIsView(false);
-							else if (selectedRule.rule_id) handleUpdateRule();
-							else handleAddRule();
-						}}
-					>
-						<div className={styles.container}>
-							<div className={styles.row}>
-								<div className={styles.col}>
-									<Input label="Rule ID" disabled value={rule.rule_id} isView={isView} />
-								</div>
-								<div className={styles.col}>
-									<Input
-										label="Rule Name	"
-										placeholder="Insert rule name"
-										value={rule.rule_name}
-										onChange={(e: any) => updateRule('rule_name', e.target.value)}
-										isView={isView}
-									/>
-								</div>
-								<div className={styles.col}>
-									<Select
-										label="Output Type"
-										selected={rule.output_type}
-										value={rule.output_type}
-										options={output_types}
-										onChange={(e: string) => updateRule('output_type', e)}
-										isView={isView}
-										required
-									/>
-								</div>
-								<div className={styles.col}>
-									<Input
-										label="Rule Status"
-										radiobtns={status_types}
-										selected={rule.status}
-										type="radio"
-										onChange={(e: any) => updateRule('status', e.target.value)}
-										isView={isView}
-									/>
-								</div>
-
-								<Input
-									label="Description"
-									placeholder="Insert description"
-									value={rule.description}
-									onChange={(e: any) => updateRule('description', e.target.value)}
-									isView={isView}
-								/>
-								<div className={styles.col}>
-									<Select
-										label="Rule Execution Mode"
-										options={rule_execution_mode}
-										defaultOption={rule_execution_default}
-										selected={rule.rule_execution_mode}
-										value={rule.rule_execution_mode}
-										onChange={(e: string) => updateRule('rule_execution_mode', e)}
-										isView={isView}
-										required
-									/>
-								</div>
-								{rule.rule_execution_mode === 'non_linear' && (
-									<div className={styles.col}>
-										<Input
-											label="Logical Expression"
-											placeholder="eg: (A AND (B OR C))"
-											value={rule.logical_expression}
-											onChange={(e: any) => updateRule('logical_expression', e.target.value.toUpperCase())}
-											isView={isView}
-											required
-											errorMessage={!isValidExpression ? 'Invalid Expression or Missing Inputs!' : ''}
-										/>
-									</div>
-								)}
+			{openDrawer && (
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						if (isView) setIsView(false);
+						else if (selectedRule.rule_id) handleUpdateRule();
+						else handleAddRule();
+					}}
+				>
+					<Drawer
+						isDrawerOpen={openDrawer}
+						hideDrawer={() => {}}
+						right
+						width={(window.innerWidth - 200) / 2}
+						header={
+							<div className={styles.AddRuleHeader}>
+								<h6>Add Rule</h6>
+								<Button link onClick={handleToggleDrawer} testId="close-button">
+									<FsIcon size={24}>cross</FsIcon>
+								</Button>
 							</div>
-						</div>
-						{(rule.rule_execution_mode === 'non_linear' && rule.logical_expression.length) ||
-						rule.rule_execution_mode === 'linear' ? (
-							<>
-								<div className={styles.switchBtnContainer}>
-									{rule.output_type === 'single' ? (
-										<>
-											<div
-												className={`${openInput ? styles.selected : ''} ${styles.switchBtn}`}
-												onClick={() => setOpenInput(true)}
-											>
-												Input
+						}
+						content={
+							<div className={styles.outerContainer}>
+								<div className={styles.container}>
+									<div className={styles.row}>
+										<div className={styles.col}>
+											<Input label="Rule ID" disabled value={rule.rule_id} isView={isView} />
+										</div>
+										<div className={styles.col}>
+											<Input
+												label="Rule Name	"
+												placeholder="Insert rule name"
+												value={rule.rule_name}
+												onChange={(e: ChangeEvent<HTMLInputElement>) => updateRule('rule_name', e.target.value)}
+												isView={isView}
+											/>
+										</div>
+										<div className={styles.col}>
+											<Select
+												label="Rule Execution Mode"
+												options={rule_execution_mode}
+												defaultOption={rule_execution_default}
+												selected={rule.rule_execution_mode}
+												value={rule.rule_execution_mode}
+												onChange={(e: string) => updateRule('rule_execution_mode', e)}
+												isView={isView}
+												required
+											/>
+										</div>
+										<div className={styles.col}>
+											<Input
+												label="Rule Status"
+												radiobtns={status_types}
+												selected={rule.status}
+												type="radio"
+												onChange={(e: ChangeEvent<HTMLInputElement>) => updateRule('status', e.target.value)}
+												isView={isView}
+											/>
+										</div>
+
+										<Input
+											label="Description"
+											placeholder="Insert description"
+											value={rule.description}
+											onChange={(e: ChangeEvent<HTMLInputElement>) => updateRule('description', e.target.value)}
+											isView={isView}
+										/>
+										<div className={styles.col}>
+											<Select
+												label="Output Type"
+												selected={rule.output_type}
+												value={rule.output_type}
+												options={output_types}
+												onChange={(e: string) => updateRule('output_type', e)}
+												isView={isView}
+												required
+											/>
+										</div>
+										{rule.rule_execution_mode === 'non_linear' && (
+											<div className={styles.col}>
+												<Input
+													label="Logical Expression"
+													placeholder="eg: (A AND (B OR C))"
+													value={rule.logical_expression}
+													onChange={(e: ChangeEvent<HTMLInputElement>) =>
+														updateRule('logical_expression', e.target.value.toUpperCase())
+													}
+													isView={isView}
+													required
+													errorMessage={!isValidExpression ? 'Invalid Expression or Missing Inputs!' : ''}
+												/>
 											</div>
-											<div
-												className={`${!openInput ? styles.selected : ''} ${styles.switchBtn} `}
-												onClick={() => setOpenInput(false)}
-											>
-												Output
-											</div>
-										</>
-									) : (
-										<div className={styles.conditionsTxt}>Conditions</div>
-									)}
+										)}
+									</div>
 								</div>
-								<div className={styles.inoutsection}>
-									{rule.output_type === 'single' ? (
-										<div>
-											{openInput ? (
+								{(rule.rule_execution_mode === 'non_linear' && rule.logical_expression.length) ||
+								rule.rule_execution_mode === 'linear' ? (
+									<>
+										<div className={styles.switchBtnContainer}>
+											{rule.output_type === 'single' ? (
 												<>
-													{rule.input &&
-														rule.input.map((cond, index) => (
+													<div
+														className={`${openInput ? styles.selected : ''} ${styles.switchBtn}`}
+														onClick={() => setOpenInput(true)}
+													>
+														Input
+													</div>
+													<div
+														className={`${!openInput ? styles.selected : ''} ${styles.switchBtn} `}
+														onClick={() => setOpenInput(false)}
+													>
+														Output
+													</div>
+												</>
+											) : (
+												<div className={styles.conditionsTxt}>Conditions</div>
+											)}
+										</div>
+										<div className={styles.inoutsection}>
+											{rule.output_type === 'single' ? (
+												<div>
+													{openInput ? (
+														<>
+															{rule.input &&
+																rule.input.map((cond, index) => (
+																	<InputComp
+																		key={alphabet[index]}
+																		condition={cond}
+																		index={index}
+																		handleOnChange={handleInputChange}
+																		onDelete={handleDeleteInput}
+																		isView={isView}
+																	/>
+																))}
+															<div>
+																{!isView && (
+																	<Button color={ButtonColors.secondary} onClick={handleAddInput}>
+																		Add condition
+																	</Button>
+																)}
+															</div>
+														</>
+													) : (
+														<OutputComp output={rule.output} isView={isView} onChange={handleOutputChange} />
+													)}
+												</div>
+											) : (
+												<div>
+													{rule.conditions &&
+														rule.conditions.map((cond, index) => (
 															<InputComp
 																key={alphabet[index]}
 																condition={cond}
 																index={index}
 																handleOnChange={handleInputChange}
 																onDelete={handleDeleteInput}
+																showOutput
 																isView={isView}
 															/>
 														))}
@@ -411,63 +440,41 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 															</Button>
 														)}
 													</div>
-												</>
-											) : (
-												<OutputComp output={rule.output} isView={isView} onChange={handleOutputChange} />
+												</div>
 											)}
 										</div>
-									) : (
-										<div>
-											{rule.conditions &&
-												rule.conditions.map((cond, index) => (
-													<InputComp
-														key={alphabet[index]}
-														condition={cond}
-														index={index}
-														handleOnChange={handleInputChange}
-														onDelete={handleDeleteInput}
-														showOutput
-														isView={isView}
-													/>
-												))}
-											<div>
-												{!isView && (
-													<Button color={ButtonColors.secondary} onClick={handleAddInput}>
-														Add condition
-													</Button>
-												)}
-											</div>
-										</div>
-									)}
-								</div>
-							</>
-						) : (
-							''
-						)}
-						<div className={styles.actionBtn}>
-							{isView && (
-								<div>
-									<Button color={ButtonColors.secondary} onClick={handleToggleDrawer}>
-										Delete Entry
+									</>
+								) : (
+									''
+								)}
+							</div>
+						}
+						footer={
+							<div className={styles.actionBtn}>
+								{isView && (
+									<div>
+										<Button color={ButtonColors.secondary} onClick={handleToggleDrawer}>
+											Delete Entry
+										</Button>
+									</div>
+								)}
+								<Button color={ButtonColors.secondary} onClick={handleToggleDrawer}>
+									Cancel
+								</Button>
+								{isView ? (
+									<Button color={ButtonColors.secondary} type={ButtonTypes.submit}>
+										Edit Details
 									</Button>
-								</div>
-							)}
-							<Button color={ButtonColors.secondary} onClick={handleToggleDrawer}>
-								Cancel
-							</Button>
-							{isView ? (
-								<Button color={ButtonColors.secondary} type={ButtonTypes.submit}>
-									Edit Details
-								</Button>
-							) : (
-								<Button color={ButtonColors.primary} type={ButtonTypes.submit} disabled={!isValidExpression}>
-									{selectedRule.rule_id ? 'Update Rule' : 'Add Rule'}
-								</Button>
-							)}
-						</div>
-					</form>
-				}
-			/>
+								) : (
+									<Button color={ButtonColors.primary} type={ButtonTypes.submit} disabled={!isValidExpression}>
+										{selectedRule.rule_id ? 'Update Rule' : 'Add Rule'}
+									</Button>
+								)}
+							</div>
+						}
+					/>
+				</form>
+			)}
 			<TwoBtnModal
 				openModal={openModal}
 				title="Are you sure you want to leave?"

@@ -8,10 +8,10 @@ import AddRuleset from '../AddRuleset/AddRuleset';
 // some of these values will be obtained from login dsta & some related API calls
 const defaultRulesetValues = {
 	ruleset_name: '',
-	country: 'SG',
+	country: '',
 	status: 'active',
 	description: '',
-	id: 'SG202501-1235',
+	id: '',
 	total_rules: 0,
 	version: '1.03.01',
 	creator: 'Alwin T.',

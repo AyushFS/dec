@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
+import { OutputStructure } from '../../../../common/interface/ruleset';
 import Card from '../../../../components/Card';
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
@@ -13,7 +14,7 @@ interface ContentProps {
 }
 
 interface OutputCompProps {
-	output: any;
+	output: OutputStructure;
 	onChange: (value: any) => void;
 	isView: boolean;
 }
@@ -62,7 +63,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 							value={isMulti ? data.output_value : data.value}
 							label="Value"
 							placeholder="Insert value"
-							onChange={(e: any) =>
+							onChange={(e: ChangeEvent<HTMLInputElement>) =>
 								isMulti ? update('output_value', e.target.value) : update('value', e.target.value, data, title)
 							}
 							isView={isView}
@@ -109,7 +110,12 @@ const OutputComp = ({ output, onChange, isView }: OutputCompProps) => {
 				return (
 					<div className={styles.mainContainer} key={d}>
 						<Card contentPadding={0}>
-							<Content title={d} data={output[d]} update={handleUpdate} isView={isView} />
+							<Content
+								title={d}
+								data={d === 'pass' ? output.pass : output.fail}
+								update={handleUpdate}
+								isView={isView}
+							/>
 						</Card>
 					</div>
 				);

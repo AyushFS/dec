@@ -7,8 +7,18 @@ import useGlobalState from '../../../GlobalState/useGlobalState';
 import AddRule from '../AddRule/AddRule';
 import UseDashboard from '../../UseDashboard';
 import TwoBtnModal from '../TwoBtnModal/TwoBtnModal';
+import { ReactFCC } from '../../../../common/interface/react';
+import { Rule as RuleInterface } from '../../../../common/interface/ruleset';
 
-const Rule = ({ rule, deleteRule, rulesetId, updateRule, dragHandle }: any) => {
+interface RuleComp {
+	rule: RuleInterface;
+	deleteRule: (ruleset_id: string, rule_id: string) => void;
+	rulesetId: string;
+	updateRule: (key: string, value: string | RuleInterface, ruleset_id: string, rule_id: string, all?: boolean) => void;
+	dragHandle: any;
+}
+
+const Rule: ReactFCC<RuleComp> = ({ rule, deleteRule, rulesetId, updateRule, dragHandle }) => {
 	const [isSwitchOn, setIsSwitchOn] = useState(false);
 	const [isDelete, setIsDelete] = useState(false);
 	const { isDrawerOpen, toggleDrawer, setDrawerOpen } = useGlobalState();

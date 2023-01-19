@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Ruleset } from '../../../../common/interface/ruleset';
 import styles from './RulesetDropdown.module.scss';
 import TwoBtnModal from '../TwoBtnModal/TwoBtnModal';
 import UseDashboard from '../../UseDashboard';
@@ -7,7 +8,7 @@ import AddRuleset from '../AddRuleset/AddRuleset';
 
 interface RulesetDropdownProps {
 	on: boolean;
-	ruleset: any;
+	ruleset: Ruleset;
 	onClick: () => void;
 }
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
+import { Ruleset } from '../../../../common/interface/ruleset';
 import Button, { ButtonColors } from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import Modal from '../../../../components/Modal';
@@ -19,7 +20,7 @@ const group_types = [
 interface AddRulesetProps {
 	openModal: boolean;
 	handleToggle: () => void;
-	currentRuleset: any;
+	currentRuleset: Ruleset;
 	handleUpdateRuleset: (key: string, value: string) => void;
 	handleAddRuleset: () => void;
 	isEdit?: boolean;
@@ -54,7 +55,7 @@ const AddRuleset = ({
 						<Input
 							label="Ruleset Name"
 							value={currentRuleset.ruleset_name}
-							onChange={(e: any) => handleUpdateRuleset('ruleset_name', e.target.value)}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => handleUpdateRuleset('ruleset_name', e.target.value)}
 						/>
 					</div>
 					{isEdit && (
@@ -64,7 +65,7 @@ const AddRuleset = ({
 								radiobtns={status_types}
 								selected={currentRuleset.status}
 								type="radio"
-								onChange={(e: any) => handleUpdateRuleset('status', e.target.value)}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => handleUpdateRuleset('status', e.target.value)}
 							/>
 						</div>
 					)}
@@ -84,7 +85,7 @@ const AddRuleset = ({
 								radiobtns={status_types}
 								selected={currentRuleset.status}
 								type="radio"
-								onChange={(e: any) => handleUpdateRuleset('status', e.target.value)}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => handleUpdateRuleset('status', e.target.value)}
 							/>
 						</div>
 					)}
@@ -94,7 +95,7 @@ const AddRuleset = ({
 			<Textarea
 				label="Ruleset Description"
 				value={currentRuleset.description}
-				onChange={(e: any) => handleUpdateRuleset('description', e.target.value)}
+				onChange={(e: ChangeEvent<HTMLInputElement>) => handleUpdateRuleset('description', e.target.value)}
 			/>
 			<div className={styles.modal_btns}>
 				<Button color={ButtonColors.secondary} onClick={handleToggle}>

@@ -72,17 +72,11 @@
 }
 
 .actionBtn {
-	position: fixed;
-	bottom: 0;
-	padding: $spacing-4;
-	right: $spacing-6;
-	width: calc(100% - 47px);
 	display: flex;
 	justify-content: flex-end;
-	background: #fff;
-
+	padding: $spacing-6 $spacing-8;
+	align-items: center;
 	div {
-		left: $spacing-6;
-		position: fixed;
+		flex: 1;
 	}
 }

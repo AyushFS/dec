@@ -15,7 +15,7 @@ const Header: ReactFCC<HeaderProps> = () => {
 		<header className={styles.Header} data-testid="header-component">
 			<div className={styles.HeaderBar} role="navigation">
 				<div className={styles.HeaderNavTrigger}>
-					<Button link onClick={() => toggleDrawer()}>
+					<Button link onClick={() => toggleDrawer('main')}>
 						<FsIcon>hamburger</FsIcon>
 					</Button>
 				</div>

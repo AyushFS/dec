@@ -10,10 +10,10 @@ import styles from './Layout.module.scss';
 interface LayoutProps {}
 
 const Layout: ReactFCC<LayoutProps> = () => {
-	const { toggleDrawer, isDrawerOpen, isMobile } = useGlobalState();
+	const { toggleDrawer, isDrawerOpen } = useGlobalState();
 	// const { auth } = useAuth();
 	const attrs = {
-		isDrawerOpen: (true && isDrawerOpen('main')) || !isMobile,
+		isDrawerOpen: true && isDrawerOpen('main'),
 		hideDrawer: toggleDrawer,
 		navBarHeight: 64,
 		visibleNavBar: false || false,

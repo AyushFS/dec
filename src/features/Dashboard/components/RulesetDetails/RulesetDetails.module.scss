@@ -40,27 +40,6 @@
 	overflow: auto;
 	flex: 1;
 	overflow-x: hidden;
-	.cardInnerContent {
-		padding: $spacing-6;
-		margin-bottom: $spacing-6;
-		background: #f6f6f6;
-		border-radius: $border-radius-default;
-		display: flex;
-		align-items: center;
-
-		.ruleIndex {
-			margin-right: $spacing-6;
-			font-size: 20px;
-			color: $color-gray-300;
-		}
-
-		@media screen and (max-width: $breakpoint-medium) {
-			padding: $spacing-6 $spacing-3;
-			span {
-				margin-right: $spacing-3;
-			}
-		}
-	}
 }
 
 .emptyCardContent {

@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-shadow */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import UseDashboard from '../../UseDashboard';
 import styles from './RulesetDetails.module.scss';
 import Button, { ButtonColors } from '../../../../components/Button';
 import svgIcons from '../../../../components/FsIcon/FsIconSvg';
 import Card from '../../../../components/Card';
 import Filter from '../Filter/Filter';
-import Rule from '../Rule/Rule';
 import AddRule from '../AddRule/AddRule';
 import useGlobalState from '../../../GlobalState/useGlobalState';
+import { Rule as RuleInterface } from '../../../../common/interface/ruleset';
+import DragableRule from '../DragableRule/DragableRule';
 
 function RulesetDetails() {
 	const { selectedRuleset, deleteRule, updateRule, updateRuleset, setSelectedRule, setSelectedRuleset } =
@@ -26,12 +25,13 @@ function RulesetDetails() {
 		if (Object.keys(selectedRuleset).length === 0) history('/');
 	}, [history, selectedRuleset]);
 
-	const handleDrop = (params: any) => {
+	const handleDrop = (params: DropResult) => {
 		const tempRules = [...selectedRuleset.rules];
 		const tempRuleset = { ...selectedRuleset };
 		const srcI = params.source.index;
-		const decI = params.destination.index;
-		if (decI !== null) {
+		const decI = params.destination && params.destination.index;
+		// destination could be 0
+		if (decI || decI === 0) {
 			tempRules.splice(decI, 0, tempRules.splice(srcI, 1)[0]);
 			updateRuleset('rules', tempRules, selectedRuleset.id);
 			setSelectedRuleset({ ...tempRuleset, rules: tempRules });
@@ -60,7 +60,7 @@ function RulesetDetails() {
 				}}
 			/>
 			{/* rule container */}
-			<DragDropContext onDragEnd={(params: any) => handleDrop(params)}>
+			<DragDropContext onDragEnd={(params) => handleDrop(params)}>
 				<div className={styles.cardOuterContainer}>
 					{selectedRuleset.rules && selectedRuleset.rules.length === 0 ? (
 						<div className={styles.cardInnerContent}>
@@ -82,29 +82,19 @@ function RulesetDetails() {
 						</div>
 					) : (
 						<Droppable droppableId="droppable-1">
-							{(provided, _) => (
+							{(provided) => (
 								<div ref={provided.innerRef}>
 									{selectedRuleset.rules &&
-										selectedRuleset.rules.map((rule: any, index: number) => (
-											<Draggable
+										selectedRuleset.rules.map((rule: RuleInterface, index: number) => (
+											<DragableRule
 												key={rule.rule_id}
+												rule={rule}
 												index={index}
-												isDragDisabled={isDrawerOpen('rule')}
-												draggableId={`draggable-${rule.rule_id}`}
-											>
-												{(provided, _) => (
-													<div className={styles.cardInnerContent} ref={provided.innerRef} {...provided.draggableProps}>
-														<span className={styles.ruleIndex}>{index < 9 ? `0${index + 1}` : ''}</span>
-														<Rule
-															rule={rule}
-															deleteRule={deleteRule}
-															updateRule={updateRule}
-															rulesetId={selectedRuleset.id}
-															dragHandle={provided}
-														/>
-													</div>
-												)}
-											</Draggable>
+												selectedRuleset={selectedRuleset}
+												isDrawerOpen={isDrawerOpen}
+												deleteRule={deleteRule}
+												updateRule={updateRule}
+											/>
 										))}
 									{provided.placeholder}
 								</div>

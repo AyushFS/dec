@@ -5,6 +5,7 @@ import Ruleset from '../Ruleset/Ruleset';
 import UseDashboard from '../../UseDashboard';
 import RulesetHeader from '../RulesetHeader/RulesetHeader';
 import Filter from '../Filter/Filter';
+import { Ruleset as RulesetInterface } from '../../../../common/interface/ruleset';
 
 const DashboardContainer = () => {
 	const { rulesets } = UseDashboard();
@@ -19,7 +20,7 @@ const DashboardContainer = () => {
 			<div className={styles.container}>
 				<div className={styles.row}>
 					{rulesets.length &&
-						rulesets.map((ruleset: any) => (
+						rulesets.map((ruleset: RulesetInterface) => (
 							<div className={styles.col} key={ruleset.id}>
 								<Card
 									cardPadding={0}
