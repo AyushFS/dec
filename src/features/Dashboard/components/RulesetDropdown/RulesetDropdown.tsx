@@ -4,7 +4,7 @@ import styles from './RulesetDropdown.module.scss';
 import TwoBtnModal from '../TwoBtnModal/TwoBtnModal';
 import UseDashboard from '../../UseDashboard';
 import svgIcons from '../../../../components/FsIcon/FsIconSvg';
-import AddRuleset from '../AddRuleset/AddRuleset';
+import AddEditRuleset from '../AddEditRuleset/AddEditRuleset';
 
 interface RulesetDropdownProps {
 	on: boolean;
@@ -83,7 +83,7 @@ const RulesetDropdown = ({ on, ruleset, onClick }: RulesetDropdownProps) => {
 				handleSecondBtn={handleDelete}
 			/>
 
-			<AddRuleset
+			<AddEditRuleset
 				isEdit
 				openModal={openEditModal}
 				handleToggle={handleEditModalToggle}

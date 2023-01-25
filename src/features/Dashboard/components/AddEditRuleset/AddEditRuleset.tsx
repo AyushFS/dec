@@ -5,7 +5,7 @@ import Input from '../../../../components/Input';
 import Modal from '../../../../components/Modal';
 import Select from '../../../../components/Select';
 import Textarea from '../../../../components/Textarea/Textarea';
-import styles from './AddRuleset.module.scss';
+import styles from './AddEditRuleset.module.scss';
 
 const status_types = [
 	{ value: 'active', label: 'Active' },
@@ -17,7 +17,7 @@ const group_types = [
 	{ value: 'IN', label: 'India' },
 ];
 
-interface AddRulesetProps {
+interface AddEditRuleProps {
 	openModal: boolean;
 	handleToggle: () => void;
 	currentRuleset: Ruleset;
@@ -27,7 +27,7 @@ interface AddRulesetProps {
 	large?: boolean;
 }
 
-const AddRuleset = ({
+const AddEditRuleset = ({
 	openModal,
 	handleToggle,
 	currentRuleset,
@@ -35,13 +35,13 @@ const AddRuleset = ({
 	handleAddRuleset,
 	isEdit,
 	large,
-}: AddRulesetProps) => {
+}: AddEditRuleProps) => {
 	return (
 		<Modal
 			openState={openModal}
 			isClosable
 			onCloseModal={handleToggle}
-			title="Add Ruleset"
+			title={isEdit ? 'Edit Ruleset' : 'Add Ruleset'}
 			extraWidth={isEdit || large}
 		>
 			<div className={styles.inputContainer}>
@@ -97,6 +97,7 @@ const AddRuleset = ({
 				value={currentRuleset.description}
 				onChange={(e: ChangeEvent<HTMLInputElement>) => handleUpdateRuleset('description', e.target.value)}
 			/>
+
 			<div className={styles.modal_btns}>
 				<Button color={ButtonColors.secondary} onClick={handleToggle}>
 					Cancel
@@ -109,4 +110,4 @@ const AddRuleset = ({
 	);
 };
 
-export default AddRuleset;
+export default AddEditRuleset;

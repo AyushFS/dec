@@ -1,0 +1,17 @@
+.right_section,
+.action {
+	display: flex;
+	justify-content: space-between;
+}
+
+.right_section {
+	flex-direction: column;
+	min-width: 150px;
+
+	button {
+		font-size: 16px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}

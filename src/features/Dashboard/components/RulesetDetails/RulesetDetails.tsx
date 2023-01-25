@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import UseDashboard from '../../UseDashboard';
@@ -11,7 +11,7 @@ import AddRule from '../AddRule/AddRule';
 import useGlobalState from '../../../GlobalState/useGlobalState';
 import { Rule as RuleInterface } from '../../../../common/interface/ruleset';
 import DragableRule from '../DragableRule/DragableRule';
-import Input from '../../../../components/Input';
+import AddEditRuleset from '../AddEditRuleset/AddEditRuleset';
 
 function RulesetDetails() {
 	const { toggleDrawer, isDrawerOpen, setDrawerOpen } = useGlobalState();
@@ -20,24 +20,13 @@ function RulesetDetails() {
 	const history = useNavigate();
 
 	const [isEdit, setIsEdit] = useState(false);
-	const [rulesetName, setRulesetName] = useState('');
+	const [currentRuleset, setCurrentRuleset] = useState(selectedRuleset);
 
 	// ruleset not selected then go back to '/'
 	useEffect(() => {
 		if (Object.keys(selectedRuleset).length === 0) history('/');
-		else setRulesetName(selectedRuleset.ruleset_name);
+		else setCurrentRuleset(selectedRuleset);
 	}, [history, selectedRuleset]);
-
-	const handleNameUpdate = () => {
-		updateRuleset('ruleset_name', rulesetName, selectedRuleset.id);
-		setSelectedRuleset({ ...selectedRuleset, ruleset_name: rulesetName });
-		setIsEdit(false);
-	};
-
-	const handleCancel = () => {
-		setRulesetName(selectedRuleset.ruleset_name);
-		setIsEdit(false);
-	};
 
 	const handleDrop = (params: DropResult) => {
 		const tempRules = [...selectedRuleset.rules];
@@ -52,6 +41,19 @@ function RulesetDetails() {
 		}
 	};
 
+	const handleEditModalToggle = () => setIsEdit((preV) => !preV);
+
+	const handleChangeRuleset = () => {
+		setSelectedRuleset(currentRuleset);
+		updateRuleset('', currentRuleset, currentRuleset.id, true);
+		handleEditModalToggle();
+	};
+
+	const handleUpdateRuleset = (key: string, value: string) => {
+		const temp = { ...currentRuleset, [key]: value };
+		setCurrentRuleset(temp);
+	};
+
 	return (
 		<div className={styles.page}>
 			<div className={styles.headNav}>
@@ -60,28 +62,13 @@ function RulesetDetails() {
 				</Button>
 			</div>
 			<div className={styles.headtext}>
-				{!isEdit ? (
-					<h5>
-						{selectedRuleset.ruleset_name ? selectedRuleset.ruleset_name : '-'}
-						<Button flat onClick={() => setIsEdit(true)}>
-							{svgIcons.Pen}
-						</Button>
-					</h5>
-				) : (
-					<div className={styles.headInput}>
-						<Input
-							value={rulesetName}
-							placeHolder="Insert ruleset name"
-							onChange={(e: ChangeEvent<HTMLInputElement>) => setRulesetName(e.target.value)}
-						/>
-						<Button flat onClick={handleCancel} color={ButtonColors.secondary}>
-							Cancel
-						</Button>
-						<Button flat onClick={handleNameUpdate} color={ButtonColors.primary}>
-							Save
-						</Button>
-					</div>
-				)}
+				<h5>
+					{selectedRuleset.ruleset_name ? selectedRuleset.ruleset_name : '-'}
+					<Button flat onClick={() => setIsEdit(true)}>
+						{svgIcons.Pen}
+					</Button>
+				</h5>
+
 				<span>{!isEdit && 'Drag cards to reorder the rules'}</span>
 			</div>
 			{/* Filter section */}
@@ -155,6 +142,15 @@ function RulesetDetails() {
 				openDrawer={isDrawerOpen('rule')}
 				handleToggleDrawer={() => toggleDrawer('rule')}
 				rulesetId={selectedRuleset.id}
+			/>
+
+			<AddEditRuleset
+				isEdit
+				openModal={isEdit}
+				handleToggle={handleEditModalToggle}
+				currentRuleset={currentRuleset}
+				handleUpdateRuleset={handleUpdateRuleset}
+				handleAddRuleset={handleChangeRuleset}
 			/>
 		</div>
 	);

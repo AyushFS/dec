@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button, { ButtonColors } from '../../../../components/Button';
 import styles from './RulesetHeader.module.scss';
 import UseDashboard from '../../UseDashboard';
-import AddRuleset from '../AddRuleset/AddRuleset';
+import AddEditRuleset from '../AddEditRuleset/AddEditRuleset';
 
 // some of these values will be obtained from login dsta & some related API calls
 const defaultRulesetValues = {
@@ -57,7 +57,7 @@ const RulesetHeader = () => {
 				</Button>
 			</div>
 			{/* Modal Section */}
-			<AddRuleset
+			<AddEditRuleset
 				openModal={openModal}
 				handleToggle={handleToggle}
 				handleUpdateRuleset={handleUpdateRuleset}
