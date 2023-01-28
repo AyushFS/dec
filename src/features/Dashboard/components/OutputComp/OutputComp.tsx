@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { OutputStructure } from '../../../../common/interface/ruleset';
+import { output_options, bool_options, custom_options } from '../../../../common/constant/defaultValues/defaultValues';
 import Card from '../../../../components/Card';
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
@@ -19,18 +20,8 @@ interface OutputCompProps {
 	isView: boolean;
 }
 
-const output_options = [
-	{ value: 'string', label: 'String' },
-	{ value: 'number', label: 'Number' },
-	{ value: 'json', label: 'JSON' },
-	{ value: 'custom', label: 'Custom value based on formula' },
-];
-
 const string_values = ['string', 'number', 'json'];
 // const select_values = ['string', 'custom'];
-
-const bool_options = [{ value: 'Pass/Fail', label: 'Pass/Fail' }];
-const custom_options = [{ value: '', label: '' }];
 
 export const Content = ({ title, data, update, isMulti, isView }: ContentProps) => {
 	return (
@@ -101,6 +92,7 @@ export const Content = ({ title, data, update, isMulti, isView }: ContentProps) 
 const OutputComp = ({ output, onChange, isView }: OutputCompProps) => {
 	const handleUpdate = (key: string, value: string, oldobj?: any, type?: any) => {
 		let temp = { ...oldobj, [key]: value };
+		if (key === 'output_type') temp = { ...temp, value: '' };
 		temp = { [type]: temp };
 		onChange(temp);
 	};

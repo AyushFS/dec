@@ -2,6 +2,14 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import LEP from '@jeanbenitez/logical-expression-parser';
 import Drawer from '../../../../components/Drawer';
 import Button, { ButtonColors, ButtonTypes } from '../../../../components/Button';
+import {
+	status_types,
+	default_output_types,
+	rule_execution_mode,
+	rule_execution_default,
+	default_condition_states,
+	defaultRuleValues,
+} from '../../../../common/constant/defaultValues/defaultValues';
 import FsIcon from '../../../../components/FsIcon';
 import styles from './AddRule.module.scss';
 import Input from '../../../../components/Input';
@@ -16,66 +24,6 @@ interface AddRuleProps {
 	handleToggleDrawer: () => void;
 	rulesetId: string;
 }
-
-const status_types = [
-	{ value: 'active', label: 'Active' },
-	{ value: 'inactive', label: 'Inactive' },
-];
-
-const default_output_types = [
-	{ value: 'single', label: 'Single Output' },
-	{ value: 'multiple', label: 'Multiple Output' },
-];
-
-const rule_execution_mode = [
-	{ value: 'non_linear', label: 'Non-Linear Execution' },
-	{ value: 'linear', label: 'Linear Execution' },
-];
-
-const rule_execution_default = { value: '', label: 'Insert Rule Execution Mode' };
-
-const default_condition_states = {
-	input: [{ name: 'A', comparator: 'static', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
-	output: { pass: { output_type: 'string', value: '' }, fail: { output_type: 'string', value: '' } },
-	conditions: [
-		{
-			name: 'A',
-			comparator: 'static',
-			factor: '',
-			operator: '',
-			value: '',
-			startValue: '',
-			endValue: '',
-			output_type: 'string',
-			output_value: '',
-		},
-	],
-};
-
-const defaultRuleValues = {
-	rule_id: '',
-	rule_name: '',
-	output_type: 'single',
-	status: 'active',
-	description: '',
-	rule_execution_mode: '',
-	logical_expression: '',
-	input: [{ name: 'A', comparator: 'static', factor: '', operator: '', value: '', startValue: '', endValue: '' }],
-	output: { pass: { output_type: 'string', value: '' }, fail: { output_type: 'string', value: '' } },
-	conditions: [
-		{
-			name: 'A',
-			comparator: 'static',
-			factor: '',
-			operator: '',
-			value: '',
-			startValue: '',
-			endValue: '',
-			output_type: 'string',
-			output_value: '',
-		},
-	],
-};
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
@@ -110,6 +58,23 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		} else setIsValidExpression(false);
 	};
 
+	useEffect(() => {
+		if (rule.logical_expression && rule.rule_execution_mode === 'non_linear')
+			checkisValidExpression(rule.logical_expression);
+	}, [rule.input]);
+
+	useEffect(() => {
+		if (Object.keys(selectedRule).length !== 0) {
+			setIsView(true);
+			setOpenInput(true);
+			setRule(selectedRule);
+		} else {
+			setIsView(false);
+			setOpenInput(true);
+			setRule(defaultRuleValues);
+		}
+	}, [selectedRule, openDrawer]);
+
 	const handleRuleExecutionChange = (execution_mode: string) => {
 		if (execution_mode === 'non_linear') {
 			if (rule.logical_expression) checkisValidExpression(rule.logical_expression);
@@ -131,10 +96,27 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		checkisValidExpression(expr);
 	};
 
-	useEffect(() => {
-		if (rule.logical_expression && rule.rule_execution_mode === 'non_linear')
-			checkisValidExpression(rule.logical_expression);
-	}, [rule.input]);
+	const checkIfDataComplete = () => {
+		let flag: boolean = true; // details are complete
+
+		if (rule.output_type !== 'multiple') {
+			if (!rule.output.fail.value || !rule.output.pass.value) {
+				setOpenInput(false);
+				flag = false;
+			}
+			rule.input.forEach((i) => {
+				if (
+					(i.operator !== 'between' && i.value.length === 0) ||
+					(i.operator === 'between' && (i.startValue.length === 0 || i.endValue.length === 0))
+				) {
+					flag = false;
+					setOpenInput(true);
+				}
+			});
+		}
+
+		return flag;
+	};
 
 	const updateRule = (key: string, value: any) => {
 		if (isView) return;
@@ -190,6 +172,8 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		}
 	};
 
+	const handleOutputChange = (value: any) => updateRule('output', { ...rule.output, ...value });
+
 	const handleAddInput = () => {
 		let temp = [];
 		if (rule.output_type === 'single') {
@@ -230,18 +214,21 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		}
 	};
 
-	const handleOutputChange = (value: any) => updateRule('output', { ...rule.output, ...value });
+	const handleConfirmLeave = () => {
+		if (!isView && rule.rule_id.length !== 0) setOpenModal(true);
+		else {
+			setOpenModal(false);
+			handleToggleDrawer();
+		}
+	};
 
-	const handleLeave = () => {
+	const handleDiscard = () => {
 		setOpenModal(false);
 		handleToggleDrawer();
-		setRule(defaultRuleValues);
 	};
 
 	const handleAddRule = () => {
-		if (rule.output_type !== 'multiple' && (!rule.output.fail.value || !rule.output.pass.value)) {
-			setOpenInput(false);
-		} else {
+		if (checkIfDataComplete()) {
 			const temp = { ...rule, rule_id: `RS-20221227-1234567${Math.floor(Math.random() * (100 - 1 + 1) + 1)}` };
 			handleToggleDrawer();
 			addNewRule(temp, rulesetId);
@@ -249,26 +236,17 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 		}
 	};
 
-	const handleUpdateRule = () => {
+	const handleCheckForUpdate = () => {
+		// if single output_type & output missings
 		if (rule.output_type !== 'multiple' && (!rule.output.fail.value || !rule.output.pass.value)) {
 			setOpenInput(false);
-		} else {
+		}
+		// trigger update state & close drawer
+		else if (checkIfDataComplete()) {
 			updateMainRule('', rule, rulesetId, selectedRule.rule_id, true);
 			handleToggleDrawer();
 		}
 	};
-
-	useEffect(() => {
-		if (Object.keys(selectedRule).length !== 0) {
-			setIsView(true);
-			setOpenInput(true);
-			setRule(selectedRule);
-		} else {
-			setIsView(false);
-			setOpenInput(true);
-			setRule(defaultRuleValues);
-		}
-	}, [selectedRule, openDrawer]);
 
 	return (
 		<>
@@ -277,7 +255,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 					onSubmit={(e) => {
 						e.preventDefault();
 						if (isView) setIsView(false);
-						else if (selectedRule.rule_id) handleUpdateRule();
+						else if (selectedRule.rule_id) handleCheckForUpdate();
 						else handleAddRule();
 					}}
 				>
@@ -289,7 +267,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 						header={
 							<div className={styles.AddRuleHeader}>
 								<h6>Add Rule</h6>
-								<Button link onClick={handleToggleDrawer} testId="close-button">
+								<Button link onClick={handleConfirmLeave} testId="close-button">
 									<FsIcon size={24}>cross</FsIcon>
 								</Button>
 							</div>
@@ -458,7 +436,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 										</Button>
 									</div>
 								)}
-								<Button color={ButtonColors.secondary} onClick={handleToggleDrawer}>
+								<Button color={ButtonColors.secondary} onClick={handleConfirmLeave}>
 									Cancel
 								</Button>
 								{isView ? (
@@ -475,6 +453,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 					/>
 				</form>
 			)}
+
 			<TwoBtnModal
 				openModal={openModal}
 				title="Are you sure you want to leave?"
@@ -483,7 +462,7 @@ const AddRule = ({ openDrawer, handleToggleDrawer, rulesetId }: AddRuleProps) =>
 				secondBtnText="Discard Changes"
 				handleModalToggle={() => setOpenModal((preV) => !preV)}
 				handleFirstBtn={() => setOpenModal(false)}
-				handleSecondBtn={handleLeave}
+				handleSecondBtn={handleDiscard}
 			/>
 		</>
 	);

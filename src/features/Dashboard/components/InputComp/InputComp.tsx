@@ -1,4 +1,13 @@
 import React, { ChangeEvent } from 'react';
+import {
+	operator_options,
+	factor_options,
+	default_comparator,
+	comparator_options,
+	default_factor,
+	default_operator,
+	default_value,
+} from '../../../../common/constant/defaultValues/defaultValues';
 import Card from '../../../../components/Card';
 import styles from './InputComp.module.scss';
 import svgIcons from '../../../../components/FsIcon/FsIconSvg';
@@ -14,25 +23,6 @@ interface InputCompProps {
 	showOutput?: boolean;
 	isView: boolean;
 }
-
-const factor_options = [
-	{ value: 'age', label: 'Age' },
-	{ value: 'balance', label: 'Balance' },
-	{ value: 'income', label: 'Income' },
-];
-
-const operator_options = [
-	{ value: 'equal', label: 'Equals' },
-	{ value: 'not_equal', label: 'Not equals' },
-	{ value: 'gt', label: 'Greator than' },
-	{ value: 'gtorequal', label: 'Greator than or equal to' },
-	{ value: 'lt', label: 'Less than' },
-	{ value: 'ltorequal', label: 'Less than or equal to' },
-	{ value: 'in', label: 'In' },
-	{ value: 'not_in', label: 'Not in' },
-	{ value: 'like', label: 'Like' },
-	{ value: 'between', label: 'Between' },
-];
 
 const array_values = ['not_in', 'in'];
 
@@ -55,8 +45,8 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 								label="Comparator"
 								selected={condition.comparator}
 								value={condition.comparator}
-								defaultOption={{ value: 'static', label: 'Static Comparator' }}
-								options={[{ value: 'dynamic', label: 'Dynamic Comparator' }]}
+								defaultOption={default_comparator}
+								options={comparator_options}
 								onChange={(e: string) => handleOnChange(index, 'comparator', e)}
 								isView={isView}
 								required
@@ -67,7 +57,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 								label="Factor"
 								selected={condition.factor}
 								value={condition.factor}
-								defaultOption={{ value: '', label: 'Choose factor' }}
+								defaultOption={default_factor}
 								options={factor_options}
 								onChange={(e: string) => handleOnChange(index, 'factor', e)}
 								isView={isView}
@@ -81,7 +71,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 										label="Operator"
 										selected={condition.operator}
 										value={condition.operator}
-										defaultOption={{ value: '', label: 'Pick operator' }}
+										defaultOption={default_operator}
 										options={operator_options}
 										onChange={(e: string) => handleOnChange(index, 'operator', e)}
 										isView={isView}
@@ -89,10 +79,12 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 									/>
 								</div>
 							)}
+
 							{condition.operator && condition.operator !== 'between' && (
 								<div className={`${styles.valueSection}} ${styles.fullFlex}`}>
 									{condition.comparator === 'static' ? (
 										<Input
+											type={array_values.includes(condition.operator) ? 'text' : 'number'}
 											value={condition.value}
 											label={array_values.includes(condition.operator) ? 'Array' : 'Value'}
 											placeholder={array_values.includes(condition.operator) ? 'eg: 1, 2, 3, 4, 5, 6' : 'Insert value'}
@@ -105,7 +97,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											label={array_values.includes(condition.operator) ? 'Array' : 'Value'}
 											value={condition.value}
 											selected={condition.value}
-											defaultOption={{ value: '', label: 'Choose Value' }}
+											defaultOption={default_value}
 											options={factor_options}
 											onChange={(e: string) => handleOnChange(index, 'value', e)}
 											isView={isView}
@@ -119,6 +111,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 								<>
 									<div className={styles.valueSection}>
 										<Input
+											type="number"
 											value={condition.startValue}
 											label="Start Value"
 											placeholder="Insert value"
@@ -131,6 +124,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 									</div>
 									<div className={styles.valueSection}>
 										<Input
+											type="number"
 											value={condition.endValue}
 											label="End Value"
 											placeholder="Insert value"
@@ -149,7 +143,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											label="Start Value"
 											value={condition.startValue}
 											selected={condition.startValue}
-											defaultOption={{ value: '', label: 'Choose Value' }}
+											defaultOption={default_value}
 											options={factor_options}
 											onChange={(e: string) => handleOnChange(index, 'startValue', e)}
 											isView={isView}
@@ -161,7 +155,7 @@ const InputComp = ({ condition, handleOnChange, onDelete, index, showOutput, isV
 											label="End Value"
 											value={condition.endValue}
 											selected={condition.endValue}
-											defaultOption={{ value: '', label: 'Choose Value' }}
+											defaultOption={default_value}
 											options={factor_options}
 											onChange={(e: string) => handleOnChange(index, 'endValue', e)}
 											isView={isView}

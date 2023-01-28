@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FC, memo, useCallback, useEffect, useState } from 'react';
 import i18n from '../../common/utilities/i18n';
+import { OPERATOR_NAMES } from '../../common/constant/enum/GeneralEnum';
 import { SelectProps } from './interface';
 import styles from './Select.module.scss';
 
@@ -37,7 +38,9 @@ const Select: FC<SelectProps> = memo(
 			<div className={`${styles.formControl} ${hasError ? styles.hasError : ''} `}>
 				{label && <label className={`${styles.formLabel}  ${isView ? styles.biggerlabel : ''}`}>{label}</label>}
 				{isView ? (
-					<div className={styles.biggerText}>{selected}</div>
+					<div className={styles.biggerText}>
+						{label === 'Operator' ? OPERATOR_NAMES[selected as keyof typeof OPERATOR_NAMES] : selected}
+					</div>
 				) : (
 					<div className={styles.formSelect}>
 						<select

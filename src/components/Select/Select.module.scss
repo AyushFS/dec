@@ -4,6 +4,9 @@
 
 .formControl {
 	composes: form-control;
+}
+
+.formControl:first-letter {
 	text-transform: capitalize;
 }
 
@@ -28,8 +31,12 @@
 .biggerText {
 	font-size: 16px !important;
 	color: $l-base-gray-darker !important;
-	text-transform: capitalize !important;
+	display: block;
 	font-weight: $font-weight-medium !important;
+}
+
+.biggerText:first-letter {
+	text-transform: capitalize;
 }
 
 .hasError {
