@@ -14,6 +14,7 @@ const Layout: ReactFCC<LayoutProps> = () => {
 	// const { auth } = useAuth();
 	const attrs = {
 		isDrawerOpen: true && isDrawerOpen('main'),
+		isRuleDrawerOpen: true && isDrawerOpen('rule'),
 		hideDrawer: toggleDrawer,
 		navBarHeight: 64,
 		visibleNavBar: false || false,

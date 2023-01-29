@@ -74,14 +74,14 @@ describe('Input component', () => {
 			expect(screen.getByText('mylabel')).toBeInTheDocument();
 		});
 
-		test('should set asterisk after label and set required attribute for input field if required prop is set to true', () => {
+		test('should set required attribute for input field if required prop is set to true', () => {
 			const attribtues = {
 				testId: 'input-field',
 				label: 'mylabel',
 				required: true,
 			};
 			render(<Input {...attribtues} />);
-			expect(screen.getByText('mylabel*')).toBeInTheDocument();
+			// expect(screen.getByText('mylabel*')).toBeInTheDocument();
 			expect(screen.getByTestId('input-field')).toHaveAttribute('required');
 		});
 

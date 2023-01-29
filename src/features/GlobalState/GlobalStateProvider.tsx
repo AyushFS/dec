@@ -94,7 +94,7 @@ export const GlobalStateProvider: ReactFCC<GlobalStateProviderProps> = ({ childr
 
 	useEffect(() => {
 		if (pageData.title) {
-			document.title = pageData.title;
+			document.title = `Rule Engine - ${pageData.title}`;
 		}
 	}, [pageData]);
 

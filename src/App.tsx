@@ -7,8 +7,7 @@ import Layout from './layout/Layout';
 
 import useMonitoring from './features/Monitoring/useMonitoring';
 import Tooltip from './components/Tooltip/Tooltip';
-import Snackbar from './components/Snackbar';
-import useGlobalState from './features/GlobalState/useGlobalState';
+
 import createRoutes from './common/utilities/createRoutes';
 
 function App() {
@@ -16,17 +15,10 @@ function App() {
 
 	const location = useLocation();
 	const history = useNavigate();
-	const { snackbar, setSnackbar } = useGlobalState();
+
 	const { initDatadog } = useMonitoring();
 
 	initDatadog();
-
-	const onSnackbarDismiss = () => {
-		if (snackbar?.onSnackbarDismiss) {
-			snackbar.onSnackbarDismiss();
-		}
-		setSnackbar(null);
-	};
 
 	useEffect(() => {
 		if (location.pathname === '/') {
@@ -44,7 +36,6 @@ function App() {
 				</Route>
 			</Routes>
 			<Tooltip />
-			{snackbar && <Snackbar {...{ ...snackbar, onSnackbarDismiss }} />}
 		</>
 	);
 }

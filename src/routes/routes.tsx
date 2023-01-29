@@ -2,7 +2,7 @@ import React from 'react';
 import FsIconSvg from '../components/FsIcon/FsIconSvg';
 import DashboardPage from '../pages/DashboardPage/DashboardPage';
 import Login from '../pages/Login/Login';
-// import Logout from '../pages/Logout/Logout';
+import Logout from '../pages/Logout/Logout';
 import { RouteConfig } from './interface';
 
 const Routes: { [key: string]: RouteConfig } = {
@@ -21,13 +21,13 @@ const Routes: { [key: string]: RouteConfig } = {
 		requireAuth: false,
 		isOnTopMenu: true,
 	},
-	// logout: {
-	// 	title: 'Logout',
-	// 	path: '/logout',
-	// 	element: <Logout />,
-	// 	requireAuth: false,
-	// 	isOnTopMenu: true,
-	// },
+	logout: {
+		title: 'Logout',
+		path: '/logout',
+		element: <Logout />,
+		requireAuth: true,
+		isOnTopMenu: false,
+	},
 };
 
 export default Routes;

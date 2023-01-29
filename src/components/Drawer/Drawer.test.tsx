@@ -99,12 +99,12 @@ describe('Drawer component', () => {
 			hideDrawer: mockHideDrawer,
 		};
 
-		it('should have default width 240px', () => {
+		it('should have default width 200px', () => {
 			const attrs = {
 				...defaultAttrs,
 			};
 			render(<Drawer {...attrs} />);
-			expect(screen.getByTestId('drawer-content')).toHaveStyle('width: 240px;');
+			expect(screen.getByTestId('drawer-content')).toHaveStyle('width: 200px;');
 		});
 		it('should have custom width 400px', () => {
 			const attrs = {

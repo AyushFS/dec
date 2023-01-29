@@ -2,13 +2,13 @@ import React from 'react';
 import { ReactFCC } from '../../common/interface/react';
 import Header from '../../components/Header';
 import './AppContent.scss';
-import useGlobalState from '../../features/GlobalState/useGlobalState';
 
 interface AppContentProps {
 	isDrawerOpen: boolean;
 	visibleNavBar?: boolean;
 	fixedDrawer?: boolean;
 	sidebarWidth?: number;
+	isRuleDrawerOpen?: boolean;
 }
 
 const AppContent: ReactFCC<AppContentProps> = ({
@@ -17,8 +17,8 @@ const AppContent: ReactFCC<AppContentProps> = ({
 	visibleNavBar,
 	sidebarWidth,
 	fixedDrawer,
+	isRuleDrawerOpen,
 }) => {
-	const { isDrawerOpen: isRuleDrawerOpen } = useGlobalState();
 	sidebarWidth = sidebarWidth || 240;
 	const getAppContentMarginLeft = () => {
 		if (fixedDrawer) {
@@ -45,7 +45,7 @@ const AppContent: ReactFCC<AppContentProps> = ({
 		return `${sidebarWidth}px`;
 	};
 	const getMainMarginRight = () => {
-		if (isRuleDrawerOpen('rule')) {
+		if (isRuleDrawerOpen) {
 			return `${(window.innerWidth - 200) / 2}px`;
 		}
 		return 0;
