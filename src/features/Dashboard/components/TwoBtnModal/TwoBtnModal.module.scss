@@ -10,5 +10,8 @@
 
 	button {
 		flex: 1;
+		display: flex;
+		justify-content: center !important;
+		align-items: center !important;
 	}
 }

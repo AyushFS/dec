@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, memo, useCallback, useEffect, useState } from 'react';
-import i18n from '../../common/utilities/i18n';
 import { OPERATOR_NAMES } from '../../common/constant/enum/GeneralEnum';
 import { SelectProps } from './interface';
 import styles from './Select.module.scss';
@@ -77,7 +76,7 @@ Select.defaultProps = {
 	label: '',
 	hasError: false,
 	defaultOption: null,
-	errorMessage: () => i18n.t('components.select.default_error_message'),
+	errorMessage: () => 'default_error_message',
 };
 
 Select.displayName = 'Select';

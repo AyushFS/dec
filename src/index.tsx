@@ -8,7 +8,6 @@ import { GlobalStateProvider } from './features/GlobalState/GlobalStateProvider'
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './common/utilities/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const queryClient = new QueryClient();

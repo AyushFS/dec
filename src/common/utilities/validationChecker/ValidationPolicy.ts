@@ -1,4 +1,3 @@
-// import {translate} from '~app/services/i18n.service';
 import {
 	NewUserValidationType,
 	SpecifyLimitValidationType,

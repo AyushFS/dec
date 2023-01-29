@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ReactFCC } from '../../../common/interface/react';
 import { useRequestLogin } from '../useRequest';
 import useAuth from '../useAuth';
@@ -13,13 +12,12 @@ import { ValidationPolicy } from '../../../common/utilities/validationChecker/Va
 import useAnalytics from '../../Analytics/useAnalytics';
 import MixpanelEvent from '../../Analytics/constants';
 import useGlobalState from '../../GlobalState/useGlobalState';
-import OtpModal from '../OtpModal/OtpModal';
 import { AuthData } from '../constants';
+import OtpModal from '../OtpModal/OtpModal';
 
 interface LoginFormProps {}
 
 const LoginForm: ReactFCC<LoginFormProps> = () => {
-	const { t } = useTranslation();
 	const { loaders, setLoader } = useGlobalState();
 	const { trackEvent } = useAnalytics();
 	const { setAuth } = useAuth();
@@ -113,17 +111,17 @@ const LoginForm: ReactFCC<LoginFormProps> = () => {
 						</div>
 						<form onSubmit={handleLogin}>
 							<Card>
-								<h4>{t('login.title')}</h4>
+								<h4>Title</h4>
 								<div>
 									<Input
 										name="email"
 										type={InputTypes.text}
 										value={email}
-										placeholder={t('login.email')}
-										label={t('login.email')}
+										placeholder="Email"
+										label="Email"
 										onChange={handleValueChange}
 										autoComplete="off"
-										errorMessage={t(validationError.email.errorMsg)}
+										errorMessage={validationError.email.errorMsg}
 										autoFocus
 										testId="email-input"
 									/>
@@ -131,24 +129,24 @@ const LoginForm: ReactFCC<LoginFormProps> = () => {
 										name="password"
 										type={InputTypes.password}
 										value={password}
-										label={t('login.password')}
+										label="Password"
 										onChange={handleValueChange}
-										errorMessage={t(validationError.password.errorMsg)}
+										errorMessage={validationError.password.errorMsg}
 										testId="password-input"
 									/>
 								</div>
 								{isPublicKeyError && (
 									<div className="mv-3 p-3 bg-warning" data-testid="public-key-error">
-										<div style={{ fontWeight: 'bold' }}>{t('login.there_seem_to_be_some_problem')}</div>
-										<small>{t('login.please_try_again_later')}</small>
+										<div style={{ fontWeight: 'bold' }}>There seem to be some problem</div>
+										<small>Please try again later</small>
 									</div>
 								)}
 								{authError && (
 									<div className="mv-3 p-3 bg-warning">
 										<div style={{ fontWeight: 'bold' }}>
-											{authError.error_description || t('login.login_credentials_are_invalid')}
+											{authError.error_description || 'Login credentials are invalid'}
 										</div>
-										<small>{t('login.please_try_again_or_reset_your_password')}</small>
+										<small>Please try again or reset your password</small>
 									</div>
 								)}
 								<Button
@@ -158,7 +156,7 @@ const LoginForm: ReactFCC<LoginFormProps> = () => {
 									disabled={loaders.login}
 									testId="login-button"
 								>
-									{t('login.login')}
+									Login
 								</Button>
 							</Card>
 						</form>

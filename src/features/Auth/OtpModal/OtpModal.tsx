@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
-import { useTranslation } from 'react-i18next';
 import { ReactFCC } from '../../../common/interface/react';
 import { useRequestOtp } from '../useRequest';
 import Input from '../../../components/Input';
@@ -20,7 +19,6 @@ interface OtpModalProps {
 }
 
 const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
-	const { t } = useTranslation();
 	const { loaders, setLoader } = useGlobalState();
 	const { email, authData, onCancel, onSuccess } = props;
 	const [error, setError] = useState<any>(null);
@@ -78,17 +76,17 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 
 	const otpTimeLeftSecondsRenderer = ({ minutes, seconds, completed }: any) => {
 		return completed ? (
-			<p data-testid="countdown-expired-text">{t('login.2fa.otp_has_expired')}</p>
+			<p data-testid="countdown-expired-text">Otp has expired</p>
 		) : (
 			<span>
-				{t('login.2fa.otp_will_expire_in')}
+				Otp will expire in
 				{otpTimeLeftSeconds > 0 && (
 					<span data-testid="countdown-time-text">
 						{minutes}:{seconds}
 					</span>
 				)}
 				<br />
-				{t('login.2fa.didn_t_receive_otp')}
+				Didn't receive otp
 			</span>
 		);
 	};
@@ -118,7 +116,7 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 					<form onSubmit={handleVerifyOpt}>
 						<div className="modal__content p-8">
 							<div className="modal__header" id="modal-header">
-								<h2 className="h5">{t('login.2fa.title')}</h2>
+								<h2 className="h5">Title</h2>
 							</div>
 							<div className="modal__body" id="modal-body">
 								<div className="text-center">
@@ -129,7 +127,7 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 										<Countdown date={Date.now() + otpTimeLeftSeconds} renderer={otpTimeLeftSecondsRenderer} />
 									)}
 									<a href="#" onClick={refetchResendOtp} data-testid="resend-link">
-										{t('login.2fa.resend')}
+										Resend
 									</a>
 									{loaders.resendOtp && <p data-testid="resending-msg">Resending...</p>}
 								</div>
@@ -138,10 +136,10 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 										type={InputTypes.text}
 										value={otp}
 										placeholder="123456"
-										label={t('login.2fa.code')}
+										label="Code"
 										onChange={handleValueChange}
 										autoComplete="off"
-										errorMessage={t(otpValidationError.otp.errorMsg)}
+										errorMessage={otpValidationError.otp.errorMsg}
 										testId="otp-input"
 										autoFocus
 									/>
@@ -151,9 +149,9 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 								{error && (
 									<div className="mv-3 p-3 bg-warning" data-testid="validate-otp-error">
 										<div style={{ fontWeight: 'bold' }}>
-											{error.error_description || t('login.2fa.there_seem_to_be_some_problem')}
+											{error.error_description || 'There seem to be some problem'}
 										</div>
-										<small>{t('login.2fa.please_try_again_later')}</small>
+										<small>Please try again later</small>
 									</div>
 								)}
 								<Button
@@ -163,7 +161,7 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 									disabled={loaders.verifyOtp}
 									testId="verify-button"
 								>
-									{t('login.2fa.verify_otp')}
+									Verify otp
 								</Button>
 								<Button
 									block
@@ -172,7 +170,7 @@ const OtpModal: ReactFCC<OtpModalProps> = (props: OtpModalProps) => {
 									onClick={handleCancel}
 									testId="cancel-button"
 								>
-									{t('login.2fa.cancel')}
+									Cancel
 								</Button>
 							</div>
 						</div>
